@@ -1,0 +1,144 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+    	#setup .center{text-align: center; margin-top: 40px;}
+    	#welcome{}
+
+   	.wrapper {
+	    float: left;
+	    position: relative;
+	    left: 50%;
+	}
+
+	.content {
+	    float: left;
+	    position: relative;
+	    left: -50%;
+	    margin-top:25px;
+	}
+
+	.clear{clear:both;}
+
+	label{display: inline-block; width:120px;}
+	input{width:250px;}
+	button{padding:10px 30px !important;}
+    </style>
+</head>
+
+<body>
+	
+<div id="setup">
+	<div class="center">SETUP</div>
+
+	<div class="center" id="welcome">
+	Welcome to Appivator!  Now that we are integrated, please fill in your API information to connect to your account</div>
+
+	<div class="wrapper"> 
+		<div class="content">
+			<form id="connectForm">
+				<p><label for="email">EMAIL:</label> <input id="email" maxlength="255" name="email" type="email"></p>
+        <p><label for="app_id">APP ID:</label> <input id="app_id" maxlength="255" name="phone" type="text"></p>
+        <p><label for="app_key">APP KEY:</label> <input id="app_key" maxlength="255" name="phone" type="text"></p>
+        <p><label for="app_secret">APP SECRET:</label> <input id="app_secret" maxlength="255" name="phone" type="text"></p>
+			</form>
+
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="center"><button>CONNECT</button></div>
+
+</div>
+
+
+</body>
+
+</html>
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <style type="text/css">
+    	#setup .center{text-align: center; padding-top: 40px;  }
+    	#welcome{}
+
+    	.mainBody{background-color:#EDEDED; margin-top:50px;}
+
+	   	.wrapper {
+		    float: left;
+		    position: relative;
+		    left: 50%;
+		}
+
+		.content {
+		    float: left;
+		    position: relative;
+		    left: -50%;
+		    padding-top:25px;
+		}
+
+		.clear{clear:both;}
+
+		label{display: inline-block; width:120px;}
+		input{width:250px;}
+		button{padding:10px 30px !important;}
+
+		.content div{padding-bottom: 45px; margin-left:auto; margin-right:auto; width:74%;}
+
+		body{color:rgb(115, 135, 156)}
+		.button{background-color:rgb(51, 122, 183); color:white;}
+    </style>
+</head>
+
+<body class="mainBody">
+	
+<div id="setup" style="width:94%; margin-left: 45px;background-color: white">
+	<div class="center" style="font-weight: bold">SETUP</div>
+
+		<div class="center" id="welcome">
+	Welcome to Appivator!  Now that we are integrated, please fill in your API information to connect to your account</div>
+
+	<div class="wrapper" style="background-color: white"> 
+		<div class="content">
+			<form id="connectForm" >
+				<p><label for="email">EMAIL:</label> <input id="email" maxlength="255" name="email" type="email"></p>
+        <p><label for="app_id">APP ID:</label> <input id="app_id" maxlength="255" name="phone" type="text"></p>
+        <p><label for="app_key">APP KEY:</label> <input id="app_key" maxlength="255" name="phone" type="text"></p>
+        <p><label for="app_secret">APP SECRET:</label> <input id="app_secret" maxlength="255" name="phone" type="text"></p>
+			</form>
+
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="center" style="padding-bottom: 350px;"><button onclick="submitConnectionInfo()" id="finishButton" class="button">FINISH</button></div>
+
+</div>
+
+<script type="text/javascript">
+	function submitConnectionInfo(){
+		setCookie('appivator_app_id', $("#app_id").val());
+		setCookie('appivator_email', $("#app_id").val());
+		setCookie('appivator_key', $("#app_id").val());
+		setCookie('appivator_secret', $("#app_id").val());
+		console.log(getCookie('appivator_app_id'))
+		return false
+	}
+
+
+
+</script>
+
+
+</body>
+
+</html>

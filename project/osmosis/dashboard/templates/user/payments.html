@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{%block head%}<div><a href="/user-dashboard">Back to Dashboard</a></div>{%endblock%}
+
+{% block content %}
+
+
+<h1>My Payments</h1>
+
+<div>
+	
+{%for payment in data.payments %}
+<div>{{payment.payments.created}} for ${{payment.total}}</div>
+
+<div>Rewards in this payment: </div>
+	{%for led in payment.ledgers%}
+	<div>{{led.action.name}} from App: {{led.action.action_type.app}}</div>
+	{%endfor%}
+	<br>
+{%endfor%}
+
+</div>
+
+
+{%endblock%}

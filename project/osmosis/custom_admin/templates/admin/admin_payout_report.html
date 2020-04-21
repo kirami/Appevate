@@ -1,0 +1,85 @@
+{% extends "admin/baseAdmin.html" %}
+{% load offer_filters %}
+{%block content%}
+
+<div>
+
+<h1>Payout Report</h1>
+
+
+<div>All Payouts:</div>
+{%if not data.payouts%}
+<div style="margin-top: 10px">No payouts have been made yet.</div>
+{%else%}
+<br>
+<div>
+Time: <select id="filterTime" style="margin-right:20px">
+	<option value="all">All</option>
+	<option value="week">By Days</option>
+	<option value="month">By Month</option>
+	<option value="year">By Year</option>
+</select>
+
+App: <select id="filterApp">
+	<option value="all">All</option>
+	{%for app in data.apps%}
+	<option value="{{app.id}}">{{app.name}}</option>
+	{%endfor%}
+</select>
+</div>
+<br>
+<div id="payments">
+	<table>
+{%for payout in data.payouts%}
+	{% ifequal forloop.counter0|modulo:6 0 %}
+	<tr>
+		{%endifequal%}
+	<td>
+	<div>Id: {{payout.id}}</div>
+	<div>App: {{payout.app}}</div>
+	<div>Amount: {{payout.amount}}</div>
+	<div>Date: {{payout.created}}</div>
+	<div>See <a href="/payment/ledgers-by-payout/{{payout.id}}">ledger items</a> for this payout:</div>
+	</td>
+	{% ifequal forloop.counter0|modulo:6 5 %}
+		</tr>
+	{%endifequal%}
+{%endfor%}
+</div>
+{%endif%}
+
+</div>
+
+<script type="text/javascript">
+	
+	
+
+	$("#filterTime").change(function(e){
+		val = $("#filterApp").val()
+		time = $("#filterTime").val()
+		$.get( "/custom_admin/payout/filter-payouts/?time=" + time + "&app=" + val, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	$("#filterApp").change(function(e){
+		app = $("#filterApp").val()
+		time = $("#filterTime").val()
+		$.get( "/custom_admin/payout/filter-payouts/?time=" + time + "&app=" + app, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	
+</script>
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,19 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+{%if data.added%}<div class="success">Subscription successfully saved</div>{%endif%}
+<h1>Subscripyion for App: {{data.app.name}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <select>
+    	<option>Sub plan 1</option>
+    </select>
+    
+    
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="/delete/app/{{data.app.id}}/"><button >Delete {{data.app.name}}</button></a>
+
+{%endblock%}

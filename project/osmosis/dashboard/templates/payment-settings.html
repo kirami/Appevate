@@ -1,0 +1,52 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+<div class="content bg-white">
+								<div class="container">
+									 {%if data.added%}<h3 style="color:green">You've successfully updated your payment settings</h3>{%endif%}
+									
+									<!-- account form -->
+									<form action="#" class="account-form form-validation" method="POST">
+											{% csrf_token %}
+										<div class="form-holder">
+											<div class="img-block">
+												<img src="/static/images/stripe.png" srcset="/static/images/stripe-2x.png 2x" alt="image description">
+											</div>
+											<div class="form-group row align-items-md-center justify-content-md-end">
+												<label for="stripe-id" class="col-md-4 col-form-label">Stripe ID</label>
+												<div class="col-md-8">
+													<input type="text" class="form-control" id="stripe-id" name="stripe_id" data-required="true" {%if data.app.stripe_id %}value="{{data.app.stripe_id | escape}}" {%endif%}>
+												</div>
+												<span class="col-md-8 error-message">Please enter id</span>
+											</div>
+											<div class="form-group row align-items-md-center justify-content-md-end">
+												<label for="stripe-account" class="col-md-4 col-form-label">Stripe Account</label>
+												<div class="col-md-8">
+													<input type="text" class="form-control" name="stripe_account" id="stripe-account" placeholder="Your Stripe account" data-required="true" {%if data.app.stripe_account %}value="{{data.app.stripe_account | escape}}" {%endif%}>
+												</div>
+												<span class="col-md-8 error-message">Please enter yout account</span>
+											</div>
+										</div>
+										<div class="btn-holder text-right">
+											<button type="submit" class="btn btn-sm btn-primary">next</button>
+										</div>
+									</form>
+								</div>
+							</div>
+
+{%endblock%}
+
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#settingsLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}
+
+	

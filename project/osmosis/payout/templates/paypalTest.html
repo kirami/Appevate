@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}Paypal Test page{% endblock %}
+
+
+{% block content %}
+<h1>Paypal Test</h1>
+
+{%if data.successMsg%}
+<h2 style="color:green">{{data.successMsg}}</h2>
+{%endif%}
+
+{%if data.errorMsg%}
+<h2 style="color:red">{{data.errorMsg}}</h2>
+{%endif%}
+
+<div class="appForm">
+<form method="post" id="paypal_test" class="paypal_test" action="/payment/paypal-test/">
+{% csrf_token %}
+
+<div>Emails (comma seperated): <input type="text" name="email" id="email" value="" style="width:300px" /></div>
+<div>Amount: $<input type="text" name="amount" id="amount" value="" style="width:300px" /></div>
+<div>Batch Name: <input type="text" name="batch" id="batch" value="" style="width:300px" /></div>
+
+<button type="submit" class="btn btn-default"/>Submit</button>
+</form>
+</div>
+
+<div class="appForm" style="margin-top:25px">
+	<div>Get batch information here:</div>
+<form method="post" id="paypal_test" class="paypal_test" action="/payment/paypal-test/">
+{% csrf_token %}
+
+<div>Batch ID: <input type="text" name="batchId" id="batchId" value="" style="width:300px" /></div>
+
+<button type="submit" class="btn btn-default"/>Submit</button>
+</form>
+</div>
+
+{%endblock%}

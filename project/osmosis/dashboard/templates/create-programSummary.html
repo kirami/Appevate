@@ -1,0 +1,111 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">You've successfully created your program!</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Create a Program<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <!-- registry form -->
+                
+{%if not data.added%}
+                <form action="#" class="registry-form form-validation smallCheckbox" method="POST" id="createProgramForm">
+                	{%csrf_token%}
+                	<input type="hidden" name="app" value="{{data.app.id}}" id="id_app">
+                  <h3>Program Summary:</h3>
+                  <div>Name: {{data.name}}</div>
+                  <div>Description: {{data.description}}</div>
+                  <div>Budget: {{data.budget}}</div>
+                  <div>Type: {{data.cType}}</div>
+                  <div style="display: none">{{data.form}}</div>
+
+                   
+                 <input type="hidden" name="trackType" id="trackType">
+                 <div style="clear:both"></div>
+                 <div style="margin-top: 30px">
+
+                  <div>Once created we will need to setup...</div> 
+
+                    <button onclick="next('cpc'); return false;" class="btn btn-primary">Back</button><button type="submit"  class="btn btn-primary">Save Program</button>
+                  </div>
+
+                  
+                </form>
+
+                {%endif%}
+            </div>
+          </div>
+		  </div>
+	</div>
+
+
+<style>
+/* Tooltip container */
+.tooltipp {
+
+    position: relative;
+    display: inline-block;
+    width:15px;
+
+  }
+
+  .tooltipp img{
+    padding-bottom: 8px;
+  }
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 1rem;
+
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.registry-form .btn {
+    min-width: 7.25rem;
+}
+</style>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#createProgramLink").addClass("active")
+
+
+function next(cType){
+
+console.log("next: " + cType)
+window.location.href="/dashboard/create-program/wizard/2"
+
+return false;
+
+}
+
+	
+
+</script>
+
+{%endblock%}

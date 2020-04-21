@@ -1,0 +1,34 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+			<h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Inactive Programs<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+			{%for program in data.programs%}
+			<div style="margin-bottom: 10px;">
+				<div>Name: {{program.name}}</div>
+				<div>Budget: ${{program.budget}}</div>
+				<a href="/dashboard/edit-program/{{program.id}}">Edit Program</a>
+				<div><a href="/dashboard/delete-program/{{program.id}}">Delete Program</a>
+				</div>
+			</div>
+			{%endfor%}
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#inactiveProgramsLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}

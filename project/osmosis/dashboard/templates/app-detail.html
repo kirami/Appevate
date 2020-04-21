@@ -1,0 +1,85 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+
+</style>
+
+<h1 style="margin-bottom: 15px">App: {{data.app.name}}</h1>
+{%if data.added%}<div class="success">Program successfully added</div>{%endif%}
+{%for program in data.programs%}
+<div>
+
+<div>Click to edit and view <a href="/edit-app/{{data.app.id}}">{{data.app.name}}</a>.</div>
+
+<div style="margin-top:10px">Program: <a href="/program-detail/{{program.id}}">{{program.name}}</a>. Click to edit and view this Program.</div>
+
+<div><a href="/css-test/{{program.id}}">CSS Test Page for {{program.id}}</a></div>
+
+</div>
+{%endfor%}
+<br>
+<!--<div>Subscription:</div>
+<a href="/subscription/{{data.app.id}}"><div>Add Subscription:</div></a>-->
+
+<div>Payout setup:</div>
+<a href="/payout/{{data.app.id}}"><div>Add Payout</div></a>
+
+
+<div style="margin-top:15px;">Add Program:</div>
+<form method="post">
+    {% csrf_token %}
+    {{ data.form.as_p }}
+    <input type="hidden" name="app" value="{{data.app.id}}">
+    <button type="submit">Create Program</button>
+  </form>
+
+
+
+<div style="margin-top:20px">Action Types for App "{{data.app.name}}":  Click to edit</div>
+{%for at in data.actionTypes%}
+<div>
+<a href="/edit-action-type/{{at.id}}">{{at.name}}</div>
+</div>
+{%endfor%}
+
+
+<div style="margin-top:15px;">Add an Action Type:</div>
+
+<div id="message"></div>
+<form action="/action-type/create/" method="post" name="newForm" id="newForm">
+	{% csrf_token %}
+	<div>
+		<input type="hidden" name="app_id" id="app_id" value="{{data.app.id}}">
+		<input type="text" name="name" id="name">
+	</div>
+    
+    <button id="2" onclick="submitCSS('{{data.app.id}}');return false"  class="btn btn-default"/>Submit</button>
+</form>
+
+<script type="text/javascript">
+	function submitCSS(app_id){
+		
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/action-type/create/", $("#newForm").serialize(), 	function( data ) { 
+			
+		  if (data.success){
+		  	window.location.reload()
+		  }
+		  else{
+		  	$("#message").text("There was a problem")
+		  }  
+		  
+		}); 
+		return false;
+	}
+</script>
+
+
+
+
+
+{%endblock%}

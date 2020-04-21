@@ -1,0 +1,110 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">You've successfully created your program!</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Create a Program<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <!-- registry form -->
+                <form action="#" class="registry-form smallCheckbox" method="POST" id="createProgramForm">
+                	{%csrf_token%}
+                	<input type="hidden" name="app" value="{{data.app.id}}" id="id_app">
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <p>How much would you like to reward people when this action is completed?</p>
+                    <label for="programName" class="col-md-4 col-form-label">Budget
+                    <div class="tooltipp"><img src="/static/img/info_icon.jpg">
+                      <span class="tooltiptext">Why do we need an program name? Please enter the name of your app so we can identify you.</span>
+                    </div> </label>
+                    <div class="col-md-8">
+
+
+
+                      <input type="number" step="any" placeholder="0.00" class="form-control" id="budget" name="budget" placeholder="0.00"  style="{%if form.budget.errors %}border-color: #9e0b0f{%endif%}; width:150px;" {%if data.form.budget.value %}value="{{data.form.budget.value | escape}}" {%endif%}>
+                    </div>
+                    
+                  </div>
+
+
+                   
+                 <input type="hidden" name="trackType" id="trackType">
+                 <div style="clear:both"></div>
+                 <div style="margin-top: 30px">
+                     <button onclick="next('cpc'); return false;" class="btn btn-primary">Back<button type="submit"  class="btn btn-primary">Next</button>
+                  </div>
+
+                  
+                </form>
+            </div>
+          </div>
+		  </div>
+	</div>
+
+
+<style>
+/* Tooltip container */
+.tooltipp {
+
+    position: relative;
+    display: inline-block;
+    width:15px;
+
+  }
+
+  .tooltipp img{
+    padding-bottom: 8px;
+  }
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 1rem;
+
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.registry-form .btn {
+    min-width: 7.25rem;
+}
+</style>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#createProgramLink").addClass("active")
+
+
+function next(cType){
+
+window.location.href="/dashboard/create-program/wizard/1"
+
+}
+
+	
+
+</script>
+
+{%endblock%}

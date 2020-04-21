@@ -1,0 +1,156 @@
+{% extends 'webframe/base.html' %}
+
+{% load static %}
+{% load offer_filters %}
+
+{%block header%}
+{%endblock%}
+
+{%block content%}
+
+<div class="redeem-slide">
+                  <div class="card">
+                    <ul class="list">
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Welcome to our rewards program, where we reward your content just for using our App!</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>If you are ready to start earning rewards for inviting people to engage with your content, we need a few things first...</p>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </div>
+
+<div class="card">
+    <h3 class="card-title">PAYMENT SETTINGS</h3>
+    <ul class="info-list">
+      <li>
+        <div class="wrapp">
+          <div class="img-box logo-item">
+            <img src="/static/images/paypal.svg" alt="image description">
+          </div>
+          <div class="holder">
+            <div class="text-box">
+              <h4>PayPal <span></span></h4>
+              <form id="settingsForm" action="" method="post">
+                <div id="inputError" style="display:none; color:#9e0b0f; font-size:.6875rem" class="title">You must enter an email address.</div>
+      {%csrf_token%}
+              <input style="border:1px solid #edf0f2" type="text" class="email" name="paypal-email" id="paypal-email" data-value="email@testtest.com" value="{{data.user.paypal_email}}" required="">
+            </form>
+            </div>
+          
+            <button class="btn btn-sm btn-light" style="" onclick="saveAccountInfo()" >Save</button>
+
+          </div>
+        </div>
+      </li>
+      
+    </ul>
+  </div>
+
+
+<script type="text/javascript">
+    function saveAccountInfo() { 
+
+      console.log('save')
+
+      error = false;
+      $("#inputError").hide()
+      $(".inputClass").removeClass('required')
+
+
+      if (!$("#paypal-email").val() ){
+
+          $("#paypal-email").addClass('required')
+          error = true
+        }
+
+      if (error){
+        $("#inputError").show()
+        return
+      }
+
+      $("#settingsForm").submit()
+  }
+      
+
+  </script>
+
+{%endblock%}
+<!--
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Appevate</title>
+  <link rel="stylesheet" href="{% static 'css/rangle-styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/user.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+</head>
+<body>
+  <div class="middleContai ner wrapper">
+  <div class="content" style="font-size: 17px;">
+    <div style="margin-left:5%; margin-right:5%; margin-top:10%">Welcome to our rewards program, where we reward your content just for using our App!</div>
+    <div style="margin-top:7%;margin-left:5%; margin-right:5%">If you are ready to start earning rewards for inviting people to engage with your content, we need a few things first...</div>
+  <div style="text-align: center; margin-top:70px; font-size: 14px; font-weight: bold">Contact Info</div>
+  <form id="settingsForm" action="" method="post">
+      {%csrf_token%}
+    <div id="inputError" style="display:none; color:red; text-align: center">Fields in red are required</div>
+    {%if data.user.email%}
+    <p style="margin-left:12%;"><label for="id_email" style="width:260px">Email:</label>{{data.user.email}}</p>
+    {%endif%}
+    <div style="clear:both"></div>
+
+    {%if data.user.paypal_email%}
+    <p style="margin-left:12%;"><label for="id_phone">Phone Number:</label>{{data.user.paypal_email}} </p>
+    {%endif%}
+    
+    <div style="text-align: center;font-size: 14px; margin-top:75px; font-weight: bold">How Should We Pay You?</div>
+    
+    <div style="clear:both"></div>
+    <div><img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_150x94.png" width="100px;" style="float:left; margin-left:5%; margin-right:2%"></div>
+    <div style="clear:both"></div>
+    <div style="margin-left:5%;"><label for="paypal-email">Paypal Email:</label> <input id="paypal-email" maxlength="255" name="paypal-email" type="email" style="margin-left:30px; font-size:35px" required=""></div>
+    <div style="clear:both"></div>
+    </form>
+  </div>
+</div>
+
+<div class="clear"></div>
+<div style="text-align: center">
+  <button class="centerButton" style="font-size:30px; margin-top:30px;background-color: rgb(0, 136, 209); color:white; padding:15px 30px;" onclick="saveAccountInfo()" >ALL DONE!</button>
+</div>
+
+  <script type="text/javascript">
+    function saveAccountInfo() { 
+
+
+    error = false;
+    $("#inputError").hide()
+    $(".inputClass").removeClass('required')
+
+
+    if (!$("#paypal-email").val() ){
+
+        $("#paypal-email").addClass('required')
+        error = true
+      }
+
+    if (error){
+      $("#inputError").show()
+      return
+    }
+
+    $("#settingsForm").submit()
+}
+    
+
+  </script>
+</body>
+</html>
+-->

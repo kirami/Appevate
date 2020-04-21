@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main id="main">
+      <!-- registry section -->
+      <section class="registry-section">
+<div style="text-align: center; margin-top:60px;">
+ {%if data.success%}
+ <h2 style="color:green">Thank you, your email has been verified.</h2>
+ {%else%}
+ <h2 style="color: red">There was an issue, please contact our administator.</h2>
+ {%endif%}
+</div>
+</section>
+</main>
+{% endblock %}

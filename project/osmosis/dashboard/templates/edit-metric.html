@@ -1,0 +1,16 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+{%if data.added%}<div class="success">Metric successfully saved</div>{%endif%}
+<h1>Metric: {{data.metric.name}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ data.form.as_p }}
+    
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="/delete/metric/{{data.metric.id}}/"><button >Delete {{data.metric.name}}</button></a>
+
+{%endblock%}

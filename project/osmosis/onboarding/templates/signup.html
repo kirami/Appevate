@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{%block content%}
+
+
+<main id="main">
+      <!-- registry section -->
+      <section class="registry-section">
+        <!-- arrow decor -->
+        <i class="icon-decor-arrow"></i>
+        <div class="container">
+          <div class="info-block">
+            <div class="bg-stretch">
+              <span data-srcset="/static/images/bg-img-02-small.jpg, /static/images/bg-img-02.jpg 2x"></span>
+              <span data-srcset="/static/images/bg-img-02.jpg, /static/images/bg-img-02-large.jpg 2x" data-media="(min-width: 768px)"></span>
+            </div>
+            <div class="text-block">
+              <div class="form-holder">
+                <a class="decor-link" href="#">
+                  <i class="icon-logo"></i>
+                </a>
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Getting Started<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                <p>To setup Appevate on your platform we first need a little information...</p>
+                <!-- registry form -->
+                <form action="#" class="registry-form form-validation" method="POST" id="registerForm">
+                	{%csrf_token%}
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="email" class="col-md-4 col-form-label">Email Address</label>
+                    <div class="col-md-8">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" data-required="true" style="{%if form.email.errors %}border-color: #9e0b0f{%endif%}" {%if form.email.errors %}value="{{form.email.value | escape}}" {%endif%}>
+                    </div>
+                    <span class="col-md-8 error-message">Please enter valid email</span>
+                     {%if form.email.errors%}<span class="col-md-8 error-message"  style="display: block">{{ form.email.errors.0|escape  }}</span>{%endif%}
+                  </div>
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+                    <label for="id_phone_number" class="col-md-4 col-form-label">Phone Number</label>
+                    <div class="col-md-8">
+                      <input type="tel" data-type="number" class="form-control" id="id_phone_number" name="phone_number" placeholder="Your phone number" data-required="true" {%if form.phone_number.errors %}value="{{form.phone_number.value | escape}}"{%endif%} style="{%if form.phone_number.errors %}border-color: #9e0b0f{%endif%}">
+                    </div>
+                    {%if form.phone_number.errors %}
+                    <span class="col-md-8 error-message" style="display: block">{{ form.phone_number.errors.0|escape  }}</span>{%endif%}
+                    <span class="col-md-8 error-message">Please enter phone</span>
+                  </div>
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_app_name" class="col-md-4 col-form-label">App Name
+                    <div class="tooltipp"><img src="/static/img/info_icon.jpg">
+                      <span class="tooltiptext">Why do we need an program name? Please enter the name of your program so we can identify you.</span>
+                    </div> 
+                    </label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="id_app_name" name="app_name" data-required="true">
+                    </div>
+                    <span class="col-md-8 error-message">Please enter app name</span>
+                  </div>
+
+                <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_first_name" class="col-md-4 col-form-label">First Name</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="id_first_name" name="first_name" data-required="true">
+                    </div>
+                    <span class="col-md-8 error-message">Please enter first name</span>
+                  </div>
+
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_last_name" class="col-md-4 col-form-label">Last Name</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="id_last_name" name="last_name" data-required="true">
+                    </div>
+                    <span class="col-md-8 error-message">Please enter last name</span>
+                  </div>
+
+
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_app_url" class="col-md-4 col-form-label">App Website URL
+                    <div class="tooltipp"><img src="/static/img/info_icon.jpg">
+                      <span class="tooltiptext">Why do we need an app website URL? Please enter the URL of your app so we can identify you.</span>
+                    </div> </label>
+                    <div class="col-md-8">
+                      <input type="url" data-type="text" data-regexp="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$" class="form-control" id="id_app_url" name="app_url">
+                    </div>
+                    <span class="col-md-8 error-message">Please enter app website URL</span>
+                  </div>
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_password1" class="col-md-4 col-form-label">Password</label>
+                    <div class="password-input col-md-8">
+                      <input type="password" class="form-control" id="password" name="password1" data-required="true" data-confirm="some_uniq">
+                      <i class="icon-lock"></i>
+                    </div>
+                    <span class="col-md-8 error-message">Please enter password</span>
+                  </div>
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="confirm-password" class="col-md-4 col-form-label">Retype Password</label>
+                    <div class="password-input col-md-8">
+                      <input type="password" class="form-control" id="confirm-password" name="password2" data-confirm="some_uniq">
+                      <i class="icon-lock"></i>
+                    </div>
+                    <span class="col-md-8 error-message">Please retype your password</span>
+                  </div>
+                  <div class="row justify-content-md-end">
+                    <div class="checkbox-holder col-md-8">
+                      <div class="custom-control custom-checkbox ">
+                        <input type="checkbox" class="custom-control-input" name="tos_agree" id="customcheck" required="">
+                        <label class="custom-control-label" for="customcheck">I have read and agreed to the <strong><a target="__blank" href="/terms-of-service">Terms of Service</a></strong></label>
+                      </div>
+                      <span id="tosError" class="col-md-8 error-message" >You must agree to the Terms of Service</span>
+                    </div>
+                    <div class="col-md-8">
+                      <button type="button" onclick="subForm()" class="btn btn-primary">submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+        <!-- arrow decor -->
+        <i class="icon-decor-arrow"></i>
+      </section>
+
+      
+    </main>
+
+    <script type="text/javascript">
+    	function subForm(){
+        console.log("click")
+    		checked = $("#customcheck").prop('checked');
+    		if (!checked){
+          $("#tosError").show()
+        }else{
+          console.log("hide")
+           $("#tosError").hide()
+           $("#registerForm").submit()
+        }
+    		return false
+    	}
+
+
+    	
+    </script>
+<style>
+/* Tooltip container */
+.tooltipp {
+
+    position: relative;
+    display: inline-block;
+    width:15px;
+
+  }
+
+  .tooltipp img{
+    padding-bottom: 8px;
+  }
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 1rem;
+
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
+
+
+<!--
+  
+  <style type="text/css">
+  	#registerForm label{width:170px;text-align:left;display: inline-block}
+  	
+	#registerForm input{width: 250px; height:25px;}
+
+  	#registerForm {
+	    float: left;
+	    position: relative;
+	    left: 50%;
+	}
+
+	#registerForm #content {
+	    float: left;
+	    position: relative;
+	    left: -50%;
+	    margin-top:25px;
+	}
+
+	.errorlist{color:red;}
+
+  </style>
+<div  style="margin:50px 15px">To setup Apptivator on your platform we first need a little information...</div>
+<form method="post" id="registerForm">
+  	<div id="content">
+    {%csrf_token%}
+    	
+    {{ form.as_p }}
+
+
+<!--
+    	<p><label for="id_email">Email address:</label> <input id="id_email" maxlength="255" name="email" type="email"></p>
+        <p><label for="id_phone">Phone:</label> <input id="id_phone" maxlength="255" name="phone" type="text"></p>
+
+		<p><label for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password"></p>
+		<p><label for="id_password2">Repeat Password:</label> <input id="id_password2" name="password2" type="password"> </p>
+
+	    <p><label for="id_phone">App Name:</label> <input id="id_app_name" maxlength="255" name="app_name" type="text"></p>
+	    <p><label for="id_phone">App URL:</label> <input id="id_phone" maxlength="255" name="app_name" type="text"></p>
+
+
+		<p><input id="id_tos_agree" name="tos_agree" type="checkbox" style="width:10px;" ><label for="id_tos_agree" style="width:230px; margin-left:15px;">I Agree to Terms of Service</label> </p>
+-->
+
+
+	<!--	
+	</div>
+	<div><button type="submit" class="tickets_btn" style="background-color: rgb(80,220,100) ">Submit</button></div>
+  </form>
+
+-->
+{%endblock%}

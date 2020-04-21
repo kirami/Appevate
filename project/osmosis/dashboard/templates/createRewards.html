@@ -1,0 +1,129 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">You've successfully created your program!</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Add events to your program<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <!-- registry form -->
+                <form action="#" class="registry-form form-validation smallCheckbox" method="POST" id="createProgramForm">
+                	{%csrf_token%}
+                	<input type="hidden" name="app" value="{{data.app.id}}" id="id_app">
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="programName" class="col-md-4 col-form-label">Event Name
+                    </label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Program Name" data-required="true" style="{%if form.name.errors %}border-color: #9e0b0f{%endif%}" {%if form.email.errors %}value="{{form.name.value | escape}}" {%endif%}>
+                    </div>
+                    
+                  </div>
+
+
+
+
+                 
+          
+              <!--
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+                    <label for="CPA" class="col-md-4 col-form-label">CPA</label>
+                    <div class="col-md-8">
+                      <input type="checkbox"  class="form-control" id="CPA" name="CPA">
+                    </div>
+                 </div>  
+
+                 <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+                    <label for="CPM" class="col-md-4 col-form-label">CPM</label>
+                    <div class="col-md-8">
+                      <input type="checkbox"  class="form-control" id="CPM" name="CPM" >
+                    </div>
+                 </div> 
+
+
+                 <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+                    <label for="CPC" class="col-md-4 col-form-label">CPC</label>
+                    <div class="col-md-8">
+                      <input type="checkbox"  class="form-control" id="CPC" name="CPC" >
+                    </div>
+                 </div> 
+
+               -->
+
+                 <button type="submit"  class="btn btn-primary">Create</button>
+                  
+            </div>
+          </div>
+		  </div>
+	</div>
+
+
+<style>
+/* Tooltip container */
+.tooltipp {
+
+    position: relative;
+    display: inline-block;
+    width:15px;
+
+  }
+
+  .tooltipp img{
+    padding-bottom: 8px;
+  }
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 220px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 1rem;
+
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltipp:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+.registry-form .btn {
+    min-width: 7.25rem;
+}
+</style>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#createProgramLink").addClass("active")
+
+
+function next(cType){
+
+console.log("next")
+
+}
+
+	
+
+</script>
+
+{%endblock%}

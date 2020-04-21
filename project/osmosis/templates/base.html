@@ -1,0 +1,321 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- set the encoding of your site -->
+  <meta charset="utf-8">
+  <!-- set the viewport width and initial-scale on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Appevate</title>
+  <!-- include the bootstrap stylesheet -->
+  <link rel="stylesheet" href="/static/css/bootstrap.css">
+  <!-- include the site stylesheet -->
+  <link rel="stylesheet" href="/static/css/main.css">
+  <link rel="stylesheet" href="/static/css/appevate.css">
+  <!-- include jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+  <script>window.jQuery || document.write('<script src="/static/js/jquery-3.3.1.min.js" defer><\/script>')</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous" defer></script>
+  <!-- include Bootstrap js library -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" defer></script>
+  <!-- include custom JavaScript -->
+  <script src="/static/js/jquery.main.js" defer></script>
+
+  <script type="text/javascript">
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function ajaxSetup(csrftoken){
+      
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    }
+
+</script>
+</head>
+<body>
+  <!-- main container of all the page elements -->
+  <div id="wrapper">
+    <!-- header of the page -->
+    <header id="header">
+      <div class="container">
+        <!-- main navigation of the page -->
+        <nav class="nav">
+          <!-- nav opener -->
+          <a class="nav-opener" href="#"><span></span></a>
+          <div class="drop">
+            <!-- menu block -->
+            <ul class="menu">
+              <a href="/about-use"><li>About Us</li></a>
+              <!--<li><a href="/how-it-works">How It Works</a></li>
+              <li><a href="/case-studies">Case Studies</a></li>
+              <li><a href="/support">Support</a></li>-->
+             <a href="/contact-us"><li>Contact Us</li></a>
+             {% if request.user.is_authenticated %}<li><a href="/accounts/logout/">Logout</a></li>{%else%}
+              <a href="/accounts/login/"><li>Login</li></a>{%endif%}
+            </ul>
+          </div>
+        </nav>
+        <!-- page logo -->
+        <strong class="logo">
+          <a href="/">
+            <img src="/static/images/logo.svg" width="188" alt="Appevate">
+          </a>
+        </strong>
+        <div>
+         {% if not request.user.is_authenticated %}<a href="/accounts/login/" style="float:left; margin-right:15px; margin-top:10px;">Login</a>{%endif%}
+        <a href="/register" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </header>
+    <!-- contain main informative part of the site -->
+    
+    {% block content %}
+      
+
+
+
+    {% endblock %}
+
+    <!-- footer of the page -->
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="flex-row">
+            <div class="lg-5">
+              <!-- page logo -->
+              <strong class="logo">
+                <a href="/">
+                  <img src="/static/images/logo.svg" width="188" alt="Appevate">
+                </a>
+              </strong>
+              <!-- contact info block -->
+              
+            </div>
+            <div class="info-block sm-3 lg-2">
+              <strong class="h5">Support</strong>
+              <!-- second menu block -->
+              <ul class="second-menu">
+               
+                <li><a href="/FAQ">FAQ</a></li>
+                <li><a href="/contact-us">Contact Us</a></li>
+                <li><a href="/support">Support</a></li>
+              </ul>
+            </div>
+            <div class="info-block sm-3 lg-2">
+              <strong class="h5">Legal</strong>
+              <!-- second menu block -->
+              <ul class="second-menu">
+                <li><a href="/terms-of-service">Terms of Service</a></li>
+                <li><a href="/privacy-policy">Privacy Policy</a></li>
+              </ul>
+            </div>
+
+            <div class="info-block sm-3 lg-2">
+              <strong class="h5">About Us</strong>
+              <!-- second menu block -->
+              <ul class="second-menu">
+                <li><a href="/our-mission">Our Mission</a></li>
+                <li><a href="/company-history">Company History</a></li>
+                <li><a href="/market-research">Market Research</a></li>
+              </ul>
+            </div>
+
+            <!--
+            <div class="info-block sm-6 lg-4">
+              <strong class="h5">Latest from blog</strong>
+             
+              <div class="blog-post">
+                <img src="/static/images/img-03.jpg" srcset="/static/images/img-03-2x.jpg 2x" alt="image description">
+                <div class="text-block">
+                  <time datetime="2019-08-28">28 Aug 2019</time>
+                  <p>Lorem ipsum dolor sit amet, consect arcu ent adipiscing elit.</p>
+                </div>
+              </div>
+             
+              <div class="blog-post">
+                <img src="/static/images/img-04.jpg" srcset="/static/images/img-04-2x.jpg 2x" alt="image description">
+                <div class="text-block">
+                  <time datetime="2019-08-22">22 Aug 2019</time>
+                  <p>Lorem ipsum dolor sit amet, consect arcu ent adipiscing elit.</p>
+                </div>
+              </div>
+            </div>
+
+          -->
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <!-- copyright -->
+              <span class="copy">© 2019 <a href="#">Appevate</a>. All Rights Reserved.</span>
+            </div>
+            <div class="col-md-6">
+              <!-- social networks -->
+              <ul class="social-networks">
+                <li><a href="#"><i class="icon-facebook"></i></a></li>
+                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                <li><a href="#"><i class="icon-instagram"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Apptivator{% endblock %}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function ajaxSetup(csrftoken){
+      
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    }
+
+</script>
+
+<style type="text/css">.success{color:green;}</style>
+  </head>
+  <body class="">
+    <script type="text/javascript" src="//privacypolicies.com/cookie-consent/releases/2.0.0/cookie-consent.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"implied","palette":"light","website_name":"appivator.com","cookies_policy_url":"/cookie-policy"});
+});
+</script>
+
+<noscript><a href="https://privacypolicies.com/cookie-consent/">Powered by PrivacyPolicies.com</a></noscript>
+    <header>
+      
+<script src="{% static 'js/menu.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/dropdown.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<style type="text/css">
+  body{font-size:18px; margin:0px;font-family: "Roboto", sans-serif}
+  .container {
+     display: flex;
+     padding:10px 0px;
+
+  }
+
+  .left {
+      width: 10%;
+      padding-top: 25px;
+      padding-left:55px;
+  }
+
+  .center {
+      flex-grow: 1;
+      text-align: center; 
+      
+  }
+
+  .right {   
+      width: 10%;
+      padding-top: 10px;
+      padding-right:20px;
+      margin-right:80px;
+  }
+.main{margin:0 65px;}
+  
+</style>
+
+<div class="container home_banner_area">
+  <div id="menu" class="left"> 
+    <div class="dropdown">
+      <a onclick="myFunction()" class="dropbtn"> Menu</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> 
+  </div>
+  <div id="logo" class="center"><img src="{% static 'img/logo.png' %}" width="165px"></div>
+  <div id="sideBar" class="right "><a href="/register"><button class="tickets_btn">Get Started</button></a></div>
+</div>
+  
+<div style="clear:both"></div>
+    </header>
+    <div class="main">
+      block head
+       block content 
+      endblock 
+    </div>
+  </body>
+</html>
+
+
+-->

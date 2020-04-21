@@ -1,0 +1,90 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+
+              <div class="form-holder">
+               {%if data.added%}<h3 style="color:green">Your changes have been saved.</h3>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Settings<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+
+                 <form action="" class="registry-form form-validation smallCheckbox" method="POST" id="editProgramForm">
+                  {%csrf_token%}
+                  <input type="hidden" name="app" value="{{data.app.id}}" id="id_app">
+                  <input type="hidden" name="owner" value="{{data.app.owner.id}}" id="owner">
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="name" class="col-md-4 col-form-label">App Name</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="name" name="name" placeholder="App Name" data-required="true" style="{%if form.name.errors %}border-color: #9e0b0f{%endif%}" {%if form.name.errors %}value="{{form.name.value | escape}}" {%else%}value="{{data.app.name}}"{%endif%}>
+                    </div>
+                    
+                  </div>
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="name" class="col-md-4 col-form-label">URL</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control" id="url" name="url" placeholder="URL" data-required="true" style="{%if form.url.errors %}border-color: #9e0b0f{%endif%}" {%if form.url.errors %}value="{{form.url.value | escape}}" {%else%}value="{{data.app.url}}"{%endif%}>
+                    </div>    
+                  </div>
+                  <!--
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_stripe_id" class="col-md-4 col-form-label">Stripe ID</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control"  name="stripe_id" id="id_stripe_id"placeholder="Stripe ID" data-required="true" style="{%if form.stripe_id.errors %}border-color: #9e0b0f{%endif%}" {%if form.stripe_id.errors %}value="{{form.stripe_id.value | escape}}" {%else%}value="{{data.app.stripe_id}}"{%endif%}>
+                    </div>    
+                  </div>
+
+
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="id_stripe_account" class="col-md-4 col-form-label">Stripe Account</label>
+                    <div class="col-md-8">
+                      <input type="text" class="form-control"  name="stripe_account" id="id_stripe_account"placeholder="Stripe Account" data-required="true" style="{%if form.stripe_account.errors %}border-color: #9e0b0f{%endif%}" {%if form.stripe_id.errors %}value="{{form.stripe_id.value | escape}}" {%else%}value="{{data.app.stripe_account}}"{%endif%}>
+                    </div>    
+                  </div>
+-->
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="name" class="col-md-4 col-form-label">Self Payout</label>
+                    <div class="col-md-8">
+                      <input type="checkbox" class="form-control" id="self_payout" name="self_payout" placeholder="Self Payout" {%if data.app.self_payout%}checked{%endif%}>
+                    </div>    
+                  </div>
+
+                  <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="name" class="col-md-4 col-form-label">Image:</label>
+                    <div class="col-md-8">
+                      <img src="{%if data.app.image%}{{ data.app.image.url }}{%endif%}" height="210px" style="height:210px !important"></a>
+                    </div>    
+                     <div style="margin-top:20px;">
+                        <input type="file" name="image" id="id_image" />
+ 
+                      </div> 
+                  </div>
+                  
+                
+                  <button type="submit"  class="btn btn-primary">Save</button>
+
+                </form>
+               
+                
+
+                <div style="margin-top:30px"><a href="/dashboard/edit-password">Edit Password</a></div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
+
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+//$("#settingsLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}

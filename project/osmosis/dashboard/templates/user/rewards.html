@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{%block head%}<div><a href="/user-dashboard">Back to Dashboard</a></div>{%endblock%}
+
+{% block content %}
+
+
+<h1>My Rewards</h1>
+
+<div id="successMsg" style="color:green; display: none">Payment was successful.</div>
+<div id="errorMsg" style="color:red; display: none"></div>
+
+<div>Available to Redeem: ${{data.user.get_redeemable}}</div>
+<div>Out of: ${{data.user.get_total}} Total</div>
+
+{%if user.get_redeemable > 0%}
+<button style="margin-top:20px; font-size: 18px; padding:20px;"  onclick="pay({{user.id}})">REDEEM</button>
+{%endif%}
+
+<div style="margin-top:25px;">
+	{%for ledger in data.ledgers%}
+	<div style="margin-bottom: 15px">
+		<div>${{ledger.amount}}</div>
+		<div>{{ledger.action.action_type}}</div>
+		<div>{{ledger.action.action_type.app}}</div>
+		<div>{{ledger.created}}</div>
+		<div>Paid? {%if ledger.payment%}Yes{%else%} No{%endif%}</div>
+	</div>
+	{%endfor%}
+</div>
+
+
+<script type="text/javascript">
+
+	function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function ajaxSetup(csrftoken){
+      
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+    }
+
+	
+	function pay(user_id){
+		
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/payment/admin-pay/", {"user_id":user_id}, function( data ) { 
+		  console.log(data)
+		  if (data.success){
+		  	$("#successMsg").show()
+		  	$("#successMsg").text(data.message)
+
+		  }
+		  else{
+		  	$("#errorMsg").show()
+		  	$("#errorMsg").text("There was an issue: "+data.message)
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+
+</script>
+
+{%endblock%}

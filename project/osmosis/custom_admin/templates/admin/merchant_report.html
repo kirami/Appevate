@@ -1,0 +1,70 @@
+{% extends "admin/baseAdmin.html" %}
+
+{%block content%}
+
+<div>
+
+<div>Send all Reports to all Merchants. <button style="font-size:14px; margin-right:20px">Send All</button>  <button style="font-size:14px">View All</button></div>
+<br><br>
+<div>Or: Choose Merchant to Send to:</div>
+
+<br>
+
+Filter by Merchant: <select id="merchant" style="margin-right:20px">
+	<option value="">--Choose Merchant--</option>
+	{%for app in data.apps%}
+	<option value="{{app.id}}">{{app.name}}</option>
+	{%endfor%}
+
+
+	
+</select>
+
+<button id= "sendButton" onclick="sendEmail()" style="font-size:14px; margin-right:20px">Send</button>
+<br><br>
+
+<div id="successMsg" style="color:green; display:none; font-size: 14px;">You successfully erased the data.</div>
+	<div id="errorMsg" style="color:red; display: none; font-size: 14px;">There was a problem.</div>
+
+
+<script type="text/javascript">
+	
+	$("#merchant").change(function(e){
+		val = $("#merchant").val()
+
+
+		name = $("#merchant option:selected").text();
+
+
+		$("#sendButton").text("Send report to " + name)
+		
+		//window.location="/custom_admin/revenue-report/?year=" + val
+
+	})
+
+	function sendEmail(){
+
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+		val = $("#merchant").val()
+
+		$.post( "/custom_admin/send-app-report/", {"merchant_id":val}, function( data ) { 
+
+		  if (data.success){
+		  	$("#successMsg").show()
+		  	$("#successMsg").text("Successfully sent email to App: " + data.name + " at email: " + data.email)
+
+		  }
+		  else{
+		  	$("#errorMsg").show()
+		  	$("#errorMsg").text("There was an issue: "+data.message)
+		  }  
+		  
+		}); 
+		return false;
+
+	}
+
+	</script>
+
+{%endblock%}

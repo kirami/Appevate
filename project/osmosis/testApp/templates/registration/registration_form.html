@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+  <div class="l-centered-container">
+    <div class="l-centered">
+      <div class="container margin-md">
+        <div class="l-site-badge">
+          <img src="{% static 'images/logo-full.png' %}" %>
+        </div>
+        <h4 class="padding-xs u-txt-align-center">Register</h4>
+        <div class="u-card l-login">
+          {% if form.non_field_errors %}
+            <div class="error-block margin-xs">
+            {% for nfe in form.non_field_errors %}
+              <span>{{ nfe }}</span>
+            {% endfor %}
+            </div>
+          {% endif %}
+          <form method="post" action="">
+            {% csrf_token %}
+            {% include 'partials/form_field.html' with field=form.email %}
+            {% include 'partials/form_field.html' with field=form.password1 %}
+            {% include 'partials/form_field.html' with field=form.password2 %}
+            <input type="submit" value="Create Account" class="button-primary u-block">
+          </form>
+          <div class="margin-sm">
+            <p class="muted">Already have an Account?</p>
+            <a href="{% url 'auth_login' %}" class="text-link">Login</a>
+          </div>
+        </div>
+        <a href="javascript:void(0);" class="text-link margin-sm u-txt-align-center muted">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

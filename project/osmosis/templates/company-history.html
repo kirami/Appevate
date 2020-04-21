@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+    <main id="main">
+
+      <!-- info section -->
+      <section class="info-section">
+        <div class="container">
+          <div class="row justify-content-lg-between">
+            <div class="col-md-6 col-lg-5">
+              <div class="img-block">
+                <img src="/static/images/img-01.svg" width="464" alt="image description">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-block">
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-rhombus teal"></i><i class="icon-triangle blue"></i></span>Company History<span><i class="icon-circle pink"></i><i class="icon-plus blue"></i></span></h1>
+                <p>It's a tough time to be a mobile app developer. According to Gartner, <strong>less than 0.01 percent</strong> of all consumer mobile apps will become financially successful throughout 2018 - yet apps continue to be a common development goal and product focus for new and aspiring entrepreneurs.</p>
+                <p>With Appevate, we lower the cost and risk by reallocating marketing dollars for your app into rewards for bringing new users to your platform.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+       <!-- About Us -->
+      <section class="process-section text-center">
+        <!-- arrow decor -->
+        <i class="icon-decor-arrow"></i>
+        <div class="container">
+          <div class="info-block">
+            <!-- decor link -->
+            <a class="decor-link" href="#">
+              <i class="icon-on"></i>
+            </a>
+            <!-- heading with decor -->
+            <h1 class="heading-decor"><span><i class="icon-triangle green"></i><i class="icon-circle orange"></i></span>About Us<span><i class="icon-dot pink"></i><i class="icon-plus blue"></i></span></h1>
+            <!-- process list block -->
+            <ul class="process-list">
+              <li>
+                <img src="/static/images/icon-1.gif" alt="image description">
+                <h3>Sign Up <br>with Appevate</h3>
+                <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Suspendisse arcu aliquam, venenatis sapien.</p>
+              </li>
+              <li>
+                <img src="/static/images/icon-2.gif" alt="image description">
+                <h3>Setup Your <br>Campaign</h3>
+                <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Suspendisse arcu aliquam, venenatis sapien.</p>
+              </li>
+              <li>
+                <img src="/static/images/icon-3.gif" alt="image description">
+                <h3>Start Rewarding <br>Your User</h3>
+                <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Suspendisse arcu aliquam, venenatis sapien.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- intro section -->
+      <section class="intro-section">
+        <div class="bg-stretch">
+          <span data-srcset="/static/images/bg-img-01-small.png, /static/images/bg-img-01.png 2x"></span>
+          <span data-srcset="/static/images/bg-img-01.png, /static/images/bg-img-01-large.png 2x" data-media="(min-width: 768px)"></span>
+        </div>
+        <!-- arrow decor -->
+        <i class="icon-decor-arrow"></i>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-7 col-md-6">
+              <!-- heading with decor -->
+              <h1 class="heading-decor"><span><i class="icon-rhombus teal"></i><i class="icon-circle orange"></i></span>Reward users on any event.<span><i class="icon-plus blue"></i><i class="icon-circle pink"></i></span></h1>
+              <div class="text-block">
+                <p>With Appevate, we lower the cost and risk by reallocating marketing dollars for your app into rewards for bringing new users to your platform.</p>
+                <div class="btn-holder">
+                  <a href="/register" class="btn btn-primary">Get Started</a>
+                  <a href="/learn-more" class="btn btn-light">Learn More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      
+    </main>
+
+<!--
+<script type="text/javascript" src="//privacypolicies.com/cookie-consent/releases/2.0.0/cookie-consent.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    cookieconsent.run({"notice_banner_type":"interstitial","consent_type":"implied","palette":"light","website_name":"appivator.com","cookies_policy_url":"{{site_url}}cookie-policy"});
+});
+</script>
+
+<noscript><a href="https://privacypolicies.com/cookie-consent/">Powered by PrivacyPolicies.com</a></noscript>
+
+
+
+<div style="margin-top:50px">
+  <h1>Got Killer Content?</h1>
+  <div>It’s a tough time to be a mobile app developer.  According to Gartner, less than 0.01 percent of all consumer mobile apps will become financially successful throughout 2018—yet apps continue to be a common development goal and product focus for new and aspiring entrepreneurs.<br><br>  With Apptivator, we lower the cost and risk by reallocating marketing dollars for your app into rewards for bringing new users to your platform</div>
+  <h1>How Does It Work?</h1>
+  <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit augue magna, ac tincidunt nisl iaculis sit amet. Pellentesque ac pellentesque ipsum. Vestibulum at magna quis ante posuere hendrerit. Sed in tristique sem, non hendrerit lacus.<br><br> Praesent ullamcorper hendrerit orci vel porta. Quisque luctus rhoncus quam, a tristique metus posuere vel. Curabitur commodo quam quam, sed imperdiet justo luctus bibendum. Praesent eu dolor vel diam posuere fermentum. Aliquam sapien odio, feugiat id dui sit amet, facilisis ultrices diam.  </div>
+  <h1>How Much Does It Cost?</h1>
+  <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce suscipit augue magna, ac tincidunt nisl iaculis sit amet. Pellentesque ac pellentesque ipsum. Vestibulum at magna quis ante posuere hendrerit. Sed in tristique sem, non hendrerit lacus.<br><br> Praesent ullamcorper hendrerit orci vel porta. Quisque luctus rhoncus quam, a tristique metus posuere vel. Curabitur commodo quam quam, sed imperdiet justo luctus bibendum. Praesent eu dolor vel diam posuere fermentum. Aliquam sapien odio, feugiat id dui sit amet, facilisis ultrices diam. <<br><br>Sed eu dolor posuere, dictum neque non, porttitor eros. Nunc id sapien sit amet neque aliquet porta porttitor commodo magna. Morbi dapibus nulla ut tincidunt congue. Donec vulputate vitae ipsum eu porttitor. Sed ut tellus lorem. </div>
+</div>
+-->
+
+{%endblock%}

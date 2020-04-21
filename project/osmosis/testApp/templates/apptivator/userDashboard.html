@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+
+<script src="https://appivator.sharemagnet.net/static/js/menu.js"></script>
+<link rel="stylesheet" type="text/css" href="https://appivator.sharemagnet.net/static/css/dropdown.css">
+<style type="text/css">
+
+label{font-size:35px; display: inline-block;}
+input{border:1px solid black; width:400px; height:100px;}
+	.left {
+	  width: 10%;
+	  padding-top: 15px;
+	  padding-left:5%;
+	}
+
+	.center {
+	  flex-grow: 1;
+	  text-align: center; 
+	  
+	}
+
+	.right {   
+	  
+	  padding-top: 15px;
+	}		
+
+	.container {
+	 display: flex;
+	background-color: rgb(0, 136, 209)
+	}
+
+body{margin:0px;}
+
+.dropdown-content a {
+
+    width: 500px;
+    height: 100px;
+    font-size: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: white;
+    color:black;
+}
+
+body{font-size: 40px}
+
+.button{font-size:30px; background-color: rgb(0, 136, 209); color:white; padding:15px 30px;}
+
+	.middleContainer{width:60%; margin:0 auto; margin-top:5%;}
+	.middleContainer button{font-style: 16px; padding:15px 30px; border:1px solid black;}
+
+	.middleLeft{float:left; font-size:24px;}
+	.middleRight{float:right; font-size:24px;}
+
+	.clear{clear:both;}
+
+	.topicInfo{margin-bottom:3%;}
+
+	.infoDiv{margin-top:50px;}
+	.box{border: 1px solid rgb(0, 136, 209); padding:4%; margin-right:10%;}
+  
+</style>
+
+<div class="container topHeader" >
+  <div id="menu" class="left" style="padding-top:50px"> 
+    <div class="dropdown">
+      <a onclick="myFunction()" class="dropbtn" style="font-size:30px"> Menu</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> 
+  </div>
+  <div id="logo" class="center"><img id="logSrc" width=250px src="https://i.redd.it/vlagpuyoxisz.png"></div>
+  <div style="visibility: hidden" id="sideBar" class="right"><a href="/register"><button >Get Started</button></a></div>
+</div>
+<div class="clear"></div>
+
+<div class="container" style="margin-top:5%; background-color: white">
+	<div class="left"> 
+		<a href="/appivator/user-settings"><button class="button" >SETTINGS</button></a>
+	</div>
+	<div  class="center" style="margin-right: -10%"><div >Rewards Balance</div><div id="accountBalance"></div></div>
+		<div class="right" style="margin-right:5%"><button class="button" onclick="redeemCash()">REDEEM CASH</button></div>
+	</div>
+	<div class="clear"></div>
+
+	<div style="margin-left:10%">
+	<div style="margin-top:15%; margin-bottom:2%; ">Rewards This Month</div>
+	<div class="box"><img src="https://canvasjs.com/wp-content/uploads/images/gallery/php-charts/overview/php-charts-graphs-index-data-label.png"></div>
+	<div style="margin-top:10%; margin-bottom:2%;">My Recent Engagements</div>
+	<div class="box" style="font-size: 34px">
+		<div>What is a Greek salad?  <span style="float:right">5 answers</span></div>
+		<div>Who is Burt Reynolds?   <span style="float:right"><span>2 answers</span></div>
+</div>
+	</div>
+
+</div>
+
+<div class="clear"></div>
+
+
+<script src="/static/js/config.js"></script>
+
+<script src="/static/js/appivator.js"></script> 
+<script type="text/javascript">
+	
+
+	
+	var api_key = appConfig.api_key;
+	var api_secret = appConfig.api_secret;
+
+	id = 1;
+
+	appivator = new Appivator({
+	  	'api_key':api_key,
+	  	'api_secret':api_secret,
+
+    });
+
+    appivator.getUserInfo(id)
+	userInfo = null;
+
+	function redeemCash(){appivator.redeemCash(id)}
+	
+	function updateUser(data) {
+		
+		res = JSON.parse(data);
+        userInfo =  new UserInfo({"id": res.id, 
+            "paypal_email": res.paypal_email, "phone_number": res.phone_number, "email": res.email})
+		
+		options = {
+            "onload": function() { 
+            	accountInfo = JSON.parse(this.responseText)
+            	$("#accountBalance").text("$"+accountInfo.balance)
+
+            },
+            "onerror": function() {}
+        }
+        
+    	CORS.get( url + "/api/account/" + id+"/?api_key="+appivator.api_key + "&api_secret="+appivator.api_secret + "&email=" , options)
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

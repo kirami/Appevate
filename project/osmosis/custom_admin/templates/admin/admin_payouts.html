@@ -1,0 +1,22 @@
+{% extends "admin/baseAdmin.html" %}
+
+{%block content%}
+
+<h1>Manually execute payouts due</h1>
+
+{%if data.success%}
+<div style="color:green">Payouts were successful.</div>
+{%endif%}
+{{data.response}}
+
+<form method="post">
+	{%csrf_token%}
+
+	<button>Run payouts</button>
+	
+</form>
+
+
+</div>
+
+{%endblock%}

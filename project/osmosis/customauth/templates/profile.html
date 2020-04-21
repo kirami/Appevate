@@ -1,0 +1,109 @@
+<DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<title>Edit Profile</title>
+<style type="text/css">
+	.appForm div{margin-bottom: 15px;}
+</style>
+</head>
+<body>
+ <h1>Profile Settings</h1>
+{%if success%}
+ <h1>Successfully Saved</h1>
+{%endif%}
+
+<form method="post" >
+{% csrf_token %}
+{{form}}
+
+<button type="submit" class="btn btn-default"/>Submit</button>
+</form>
+
+{%for app in data.apps%}
+<div class="appForm">
+<form method="post" id="css_form_{{app.id}}" class="css_form" action="/profile/css-submit/">
+{% csrf_token %}
+<div>{{app.name}}.  <a href="/css-test/{{app.id}}">To test click here</a></div>
+<div><input type="hidden" name="app_id" id="app_id" value="{{app.id}}"></div>
+<div><input type="text" name="css_url" id="css_url" value="{{app.css_url}}" style="width:300px" /></div>
+<div><label for="self_payout">We will payout our rewards by ourselves: </label><input type="checkbox" name="self_payout" id="self_payout" {%if app.self_payout %} checked="" {%endif%}/></div>
+<div id="message_{{app.id}}"></div>
+<button id="2" onclick="submitCSS('{{app.id}}');return false"  class="btn btn-default"/>Submit</button>
+</form>
+</div>
+
+<div>Store icon: {{app.image}}
+<form action="/profile/image-upload/" method="post" enctype="multipart/form-data">{% csrf_token %}
+	<div><input type="hidden" name="app_id" id="app_id" value="{{app.id}}"></div>
+    <p>
+        <input id="id_image" type="file" class="" name="image">
+    </p>
+    <input type="submit" value="Submit" />
+</form>
+</div>
+{%endfor%}
+
+
+
+
+<script type="text/javascript">
+	function submitCSS(app_id){
+		
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/profile/css-submit/", $("#css_form_"+app_id).serialize(),function( data ) { 
+		  if (data.success){
+		  	$("#message_" + data.app_id).text("Successfully Saved")
+		  }
+		  else{
+		  	$("#message_" + data.app_id).text("There was a problem")
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+	
+
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function ajaxSetup(csrftoken){
+	
+	$.ajaxSetup({
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+}
+
+</script>
+
+</body>
+</html>

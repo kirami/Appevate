@@ -1,0 +1,85 @@
+{% extends 'dashboard_base.html' %}
+{% load offer_filters %}
+
+{% block content %}
+
+<h1>Analytics for user: {{data.user.email}}</h1>
+
+
+<div>
+{%if data.program.CPC%}
+CPCs
+{%endif%}
+</div>
+
+<div>
+{%if data.program.CPM%}
+CPMs
+{%endif%}
+</div>
+
+<div>
+{%if data.program.CPA%}
+CPAs
+{%endif%}
+</div>
+
+
+<h1 style="margin-top:15px">Total Metrics per Event:</h1>
+<div style="float:left">
+	<select id="metricTime" onchange="metricFilter(this, 'time')">
+		<option value="year">By Year</option>
+		<option value="month">By Month</option>
+		<option value="week">By This Week</option>
+	</select></div>
+<div style="float:left; margin-left: 10px;">
+	<select id="metricEvent" onchange="metricFilter(this, 'event')">
+	<option value="all">All Events</option>
+	{%for event in data.events%}
+	<option value="{{event.id}}">{{event.name}}</option>
+	{%endfor%}
+	
+</select></div>
+<div style="clear:both; margin-bottom: 10px"></div>
+<div style="margin-bottom: 10px;" id="metricData">
+{%for metric in data.metricData%}
+	{% for i in 0|range:metric.first %}
+	<div style="margin-bottom: 5px;">
+ 		{{metric.headers|index:i}}:  {{metric.name}}: {{metric.first|index:i}} / {{metric.second|index:i}} 
+ 	</div>
+ 		
+	{%endfor%}
+	<div style="border:1px solid gray; margin-top:15px; width:500px; height:100px">Graph goes here</div>
+{%endfor%}
+</div>
+<div id="message"></div>
+
+<script type="text/javascript">
+	function metricFilter(e, filterType){
+		
+		
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		time = $('#metricTime :selected').val();
+		console.log(time)
+		
+		$.post( "/filterMetrics/", {"time": time, "type": filterType, "value": e.value, 'program_id':{{data.program.id}} }, 	function( data ) { 
+			
+		  if (data.success){
+		  	$("#metricData").html(data.html)
+		  }
+		  else{
+		  	$("#message").text("There was a problem")
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+
+	
+</script>
+
+
+{%endblock%}

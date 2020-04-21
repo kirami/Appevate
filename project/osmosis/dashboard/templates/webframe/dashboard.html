@@ -1,0 +1,534 @@
+{% extends 'webframe/base.html' %}
+
+{% load static %}
+{% load offer_filters %}
+
+{%block content%}
+
+{%if data.css_url%}
+
+<link id="1" href="{{data.css_url}}" rel="stylesheet">
+
+{%endif%}
+
+
+{%if data.app.custom_color%}
+
+<style type="text/css">
+  
+#nav li.active a { background-color:{{data.app.custom_color}} }
+
+.btn.btn-primary { background-color:{{data.app.custom_color}} }
+
+
+
+.slick-dots li:hover button, .slick-dots li.active button, .slick-dots li.slick-active button {background-color:{{data.app.custom_color}} }
+
+
+.graph-block .title:after {border-top: .40625rem solid {{data.app.custom_color}} }
+
+
+</style>
+
+{%endif%}
+
+<main id="main">
+        <div class="page-slider">
+          <div class="page-slide">
+            <div class="container">
+              <div class="card">
+                <div style="color:green; display: none" id="accountSuccess">We've successfully changed your settings.</div>
+                <h3 class="card-title">Account SETTINGS</h3>
+                <ul class="info-list">
+                  <li>
+                    <div class="wrapp">
+                      <div class="img-box">
+                        <img src="/static/images/img-1.jpg" alt="image description">
+                      </div>
+                      <div class="holder">
+                        <div class="text-box">
+                          <h4>First Last</h4>
+                          <span class="value">{{data.user.email}}</span>
+                        </div>
+                        <a id="accountSettingsLink" class="btn btn-sm btn-light btn-edit" onclick="editAccountSettings()">Edit</a>
+                      </div>
+                    </div>
+                    <ul>
+                      <li>
+                        <div class="wrapp">
+                          <div class="holder">
+                            <div class="text-box">
+                              <h4>Phone</h4>
+                              <input type="text" name="phone" id="phone" readonly value="{{data.user.phone_number}}">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <!--
+                      <li>
+                        <div class="wrapp">
+                          <div class="holder">
+                            <div class="text-box">
+                              <h4>Unique Id</h4>
+                              <input type="text" name="id" readonly value="Appevate112">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="wrapp">
+                          <div class="holder">
+                            <div class="text-box">
+                              <h4>Password</h4>
+                              <input type="password" name="password" readonly value="123456789">
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                -->
+                </ul>
+              </div>
+              <div class="card">
+                <h3 class="card-title">PAYMENT SETTINGS</h3>
+                <ul class="info-list">
+                  <li>
+                    <div class="wrapp">
+                      <div class="img-box logo-item">
+                        <img src="/static/images/venmo.svg" alt="image description">
+                      </div>
+                      <div class="holder">
+                        <div class="text-box">
+                          <h4>Venmo <span>(primary)</span></h4>
+                          <input type="text" class="email" name="email" id="venmo_email" readonly value="{{data.user.venmo_email}}">
+                        </div>
+                        <a class="btn btn-sm btn-light btn-edit" id="venmoBtn" onclick="editPaymentSettings('venmo')">Edit</a>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="wrapp">
+                      <div class="img-box logo-item">
+                        <img src="/static/images/paypal.svg" alt="image description">
+                      </div>
+                      <div class="holder">
+                        <div class="text-box">
+                          <h4>PayPal <span>(secondary)</span></h4>
+                          <input type="text" class="email" id="paypal_email" name="email-paypal" readonly value="{{data.user.paypal_email}}">
+                        </div>
+                        <a class="btn btn-sm btn-light btn-edit" id="paypalBtn" onclick="editPaymentSettings('paypal')">Edit</a>
+                      </div>
+                    </div>
+                  </li>
+                  <!--
+                  <li>
+                    <div class="wrapp">
+                      <div class="img-box logo-item">
+                        <img src="/static/images/master-card.svg" alt="image description">
+                      </div>
+                      <div class="holder">
+                        <div class="text-box">
+                          <h4>MasterCard <span>(secondary)</span></h4>
+                          <input type="text" class="card-field" name="email" readonly data-value="1111 1111 1111 7958" value="ending -7958">
+                        </div>
+                        <a class="btn btn-sm btn-light btn-edit" href="./index.html">Edit</a>
+                      </div>
+                    </div>
+                  </li>
+                -->
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="page-slide active">
+            <div class="container">
+              <div class="price-holder">
+                <div class="price-box">
+                  <strong class="price"><span class="totalSpan">${{data.total|getDollars}}</span>.<sup><span class="totalCentsSpan">{{data.total|getCents}}</span></sup></strong>
+                </div>
+              </div>
+              <div class="btn-holder">
+                <strong class="title">Available To Redeem</strong>
+                <div class="btn-group">
+                  <a class="btn btn-light" data-trigger="#settings" href="#"><i class="icon-settings"></i>Settings</a>
+                 
+                  <strong class="btn price">$<span class="availableSpan">{{data.available|getDollars}}</span>.<sup><span class="availableCentsSpan">{{data.available|getCents}}</span></sup></strong>
+                  <a class="btn btn-primary" data-trigger="#redeem" href="#"><i class="icon-redeem"></i>Redeem</a>
+                </div>
+              </div>
+              <div class="graph-slider">
+                <div class="slick-slide">
+                  <div class="card card-graph">
+                    <div class="graph-block">
+                      <strong class="title">Rewards This Month</strong>
+                      <div class="chart-block" data-src="/static/inc/bar-data.csv"></div>
+                      <ul class="legend">
+                        <li><span class="label label-primary"></span>Peak zone</li>
+                        <li><span class="label label-default"></span>Average zone</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="slick-slide">
+                  <div class="card card-graph">
+                    <div class="graph-block">
+                      <strong class="title">Rewards This Month</strong>
+                      <div class="chart-block" data-src="/static/inc/bar-data.csv"></div>
+                      <ul class="legend">
+                        <li><span class="label label-primary"></span>Peak zone</li>
+                        <li><span class="label label-default"></span>Average zone</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="slick-slide">
+                  <div class="card card-graph">
+                    <div class="graph-block">
+                      <strong class="title">Rewards This Month</strong>
+                      <div class="chart-block" data-src="/static/inc/bar-data.csv"></div>
+                      <ul class="legend">
+                        <li><span class="label label-primary"></span>Peak zone</li>
+                        <li><span class="label label-default"></span>Average zone</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="page-slide">
+            <div class="container">
+              <div id="successMsg" style="display: none; color:green; text-align: center">You've successfully redeem your reward</div>
+               <div id="errorMsg" style="display: none; color:#9e0b0f; text-align: center">There was an issue, please contact us.</div>
+              
+              <div class="price-holder">
+                <div class="price-box">
+                  <strong class="price">$<span class="availableSpan">{{data.available|getDollars}}</span>.<sup><span class="availableCentsSpan">{{data.available|getCents}}</span></sup></strong>
+                  <span class="price-footer">Total Amount Available To Redeem</span>
+                </div>
+              </div>
+              <div class="redeem-slider">
+                <div class="redeem-slide">
+                  <div class="card">
+                    <ul class="list">
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Redeem Rule Title 01</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>Maecenas faucibus mollis interdum. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. <a href="#">This is Important!</a> and than Text nulla vitae elit libero, a pharetra augue.</p>
+                      </li>
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Valid Bank Account or Credit Card</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>You must have a valid bank accoun and or Credit card to have a succesifull redeem. Redeems without valid account will go to pending and you ned to wait at least 12 working days for <strong><a href="#">Appevate</a></strong> to update the changes.</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="redeem-slide">
+                  <div class="card">
+                    <ul class="list">
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Redeem Rule Title 01</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>Maecenas faucibus mollis interdum. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. <a href="#">This is Important!</a> and than Text nulla vitae elit libero, a pharetra augue.</p>
+                      </li>
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Valid Bank Account or Credit Card</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>You must have a valid bank accoun and or Credit card to have a succesifull redeem. Redeems without valid account will go to pending and you ned to wait at least 12 working days for <strong><a href="#">Appevate</a></strong> to update the changes.</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="redeem-slide">
+                  <div class="card">
+                    <ul class="list">
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Redeem Rule Title 01</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>Maecenas faucibus mollis interdum. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. <a href="#">This is Important!</a> and than Text nulla vitae elit libero, a pharetra augue.</p>
+                      </li>
+                      <li>
+                        <div class="heading">
+                          <strong class="title">Valid Bank Account or Credit Card</strong>
+                          <span class="btn-more"></span>
+                        </div>
+                        <p>You must have a valid bank accoun and or Credit card to have a succesifull redeem. Redeems without valid account will go to pending and you ned to wait at least 12 working days for <strong><a href="#">Appevate</a></strong> to update the changes.</p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="footer-block">
+              
+              <a class="btn btn-primary" onclick="redeemCash()">Redeem Now!</a>
+            </div>
+          </div>
+        </div>
+      </main>
+
+
+
+  <script type="text/javascript">
+
+    function editAccountSettings(){
+      console.log("edit account")
+      mode = $('#accountSettingsLink').text()
+      if(mode == "Save"){
+
+        data ={}
+        data["phone"] = $("#phone").val()
+
+        var csrftoken = getCookie('csrftoken');
+        ajaxSetup(csrftoken);
+
+        $.post( "/webframe/form/{{data.user.id}}/" , data, function(data){
+          //console.log(data)
+
+            if (data.success){
+              $("#accountSuccess").show()
+              
+              //$("#errorMsg").hide()
+             
+            }else{
+
+            }
+
+            return false;
+        
+        })
+      
+      }
+      return false;
+  }
+  
+
+
+function editPaymentSettings(e){
+      console.log("edit payment")
+      if(e == "paypal")
+        mode = $('#paypalBtn').text()
+      else
+        mode = $('#venmoBtn').text()
+      console.log("pay")
+      if(mode == "Save"){
+        console.log("saved")
+        data ={}
+        data["paypal_email"] = $("#paypal_email").val()
+        data["venmo_email"] = $("#venmo_email").val()
+        var csrftoken = getCookie('csrftoken');
+        ajaxSetup(csrftoken);
+
+        $.post( "/webframe/form/{{data.user.id}}/" , data, function(data){
+          //console.log(data)
+
+            if (data.success){
+              $("#accountSuccess").show()
+              
+              //$("#errorMsg").hide()
+             
+            }else{
+
+            }
+
+            return false;
+        
+        })
+      
+      }
+      return false;
+  }
+
+  function redeemCash(){
+
+        console.log("redeem")
+        url = "api_key={{data.app.api_key}}&api_secret="+'{{data.app.api_secret}}'+"&user_id={{data.user_id}}"
+        $.get( "/api/payment/send-payment/?" +url , function(data){
+          //console.log(data)
+
+            if (data.success){
+              $("#successMsg").show()
+              $("#successMsg").html($("#successMsg").html() + ": $" + data.paidAmount)
+              $("#errorMsg").hide()
+              $(".availableSpan").html("0")
+              $(".availableCentsSpan").html("00")
+              splitStr = data.total.split(".")
+              $(".totalSpan").html("$" + splitStr[0])
+              
+              if (splitStr.length > 1){
+                $(".totalCentsSpan").html(splitStr[1])
+              }else{
+                $(".totalCentsSpan").html("00")
+              }
+              
+            
+
+            }
+            else{
+              $("#errorMsg").show()
+              $("#errorMsg").html(data.message)
+              $("#successMsg").hide()
+            }
+                  
+        } )
+        return false
+
+    }
+  
+  
+  
+
+
+</script>
+{%endblock%}
+
+
+<!--
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<style type="text/css">
+
+label{font-size:35px; display: inline-block;}
+input{border:1px solid black; width:400px; height:100px;}
+  .left {
+    width: 10%;
+    padding-top: 15px;
+    padding-left:5%;
+  }
+
+  .center {
+    flex-grow: 1;
+    text-align: center; 
+    
+  }
+
+  .right {   
+    
+    padding-top: 15px;
+  }   
+
+  .container {
+   display: flex;
+  background-color: rgb(0, 136, 209)
+  }
+
+body{margin:0px;}
+
+.dropdown-content a {
+
+    width: 500px;
+    height: 100px;
+    font-size: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: white;
+    color:black;
+}
+
+body{font-size: 40px}
+
+.button{font-size:30px; background-color: rgb(0, 136, 209); color:white; padding:15px 30px;}
+
+  .middleContainer{width:60%; margin:0 auto; margin-top:5%;}
+  .middleContainer button{font-style: 16px; padding:15px 30px; border:1px solid black;}
+
+  .middleLeft{float:left; font-size:24px;}
+  .middleRight{float:right; font-size:24px;}
+
+  .clear{clear:both;}
+
+  .topicInfo{margin-bottom:3%;}
+
+  .infoDiv{margin-top:50px;}
+  .box{border: 1px solid rgb(0, 136, 209); padding:4%; margin-right:10%;}
+  
+</style>
+
+
+<div class="container" style="margin-top:5%; background-color: white">
+  <div class="left"> 
+    <a href="/webframe/form/{{data.user.id}}"><button class="button" >SETTINGS</button></a>
+  </div>
+  <div  class="center" style="margin-right: -10%"><div >Rewards Balance</div><div id="accountBalance">${{data.available}}</div>Out of <span id="total">${{data.total}}</span> total
+ <div id="errorMsg" style="color:red; display: none"></div>
+  <div id="successMsg" style="color:green; display: none">You've been successfully paid</div>
+</div>
+ 
+    <div class="right" style="margin-right:5%"><button style="cursor: pointer;" class="button" onclick="redeemCash()">REDEEM CASH</button></div>
+  </div>
+  <div class="clear"></div>
+
+  <div style="margin-left:10%">
+  <div style="margin-top:15%; margin-bottom:2%; ">Rewards This Month</div>
+  <div class="box"><img src="https://canvasjs.com/wp-content/uploads/images/gallery/php-charts/overview/php-charts-graphs-index-data-label.png"></div>
+  <div style="margin-top:10%; margin-bottom:2%;">My Recent Engagements</div>
+  <div class="box" style="font-size: 34px">
+    <div>What is a Greek salad?  <span style="float:right">5 answers</span></div>
+    <div>Who is Burt Reynolds?   <span style="float:right"><span>2 answers</span></div>
+</div>
+  </div>
+
+</div>
+
+<div class="clear"></div>
+
+<script type="text/javascript">
+  
+  function redeemCash(){
+
+        $.get( "/api/payment/send-payment/?api_key={{data.app.api_key}}&api_secret={{data.app.api_secret}}&user_id={{data.user_id}}" , function(data){
+          //console.log(data)
+
+            if (data.success){
+              $("#successMsg").show()
+              $("#successMsg").html($("#successMsg").html() + ": $" + data.paidAmount)
+              $("#errorMsg").hide()
+              $("#accountBalance").html("$0")
+              $("#total").html("$" + data.total)
+            }
+            else{
+              $("#errorMsg").show()
+              $("#errorMsg").html(data.message)
+              $("#successMsg").hide()
+            }
+                  
+        } )
+        return false
+
+    }
+  
+  
+  
+
+
+</script>
+
+
+</body>
+
+</html>
+
+-->

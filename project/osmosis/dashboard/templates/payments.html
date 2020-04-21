@@ -1,0 +1,68 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+
+<button onclick="window.print();return false;" />Print Report</button>
+
+
+<h1>Payments for App: {{data.app.name}}</h1>
+
+<div>All Payments:</div>
+{%if not data.payments%}
+<div style="margin-top: 10px">No payments have been made yet.</div>
+{%endif%}
+<br>
+<div>
+Platform: <select id="filterPlatform">
+	<option value="all">All</option>
+	<option value="PayPal">PayPal</option>
+	<option value="Venmo">Venmo</option>
+</select>
+
+Time: <select id="filterTime">
+	<option value="all">All</option>
+	<option value="week">By Days</option>
+	<option value="month">By Month</option>
+	<option value="year">By Year</option>
+</select>
+
+</div>
+<br>
+<div id="payments">
+{%for payment in data.payments%}
+<div>Id: {{payment.id}}</div>
+<div>User: {{payment.account.user}}</div>
+<div>Platform: {{payment.platform}}</div>
+<div>Program: {{payment.account.program}}</div>
+<div>Amount: {{payment.amount}}</div>
+<div>See <a href="/payment/ledgers-by-payments/{{payment.id}}">ledger items</a> for this payment:</div>
+<br>
+{%endfor%}
+</div>
+
+<script type="text/javascript">
+	
+	$("#filterPlatform").change(function(e){
+		val = $("#filterPlatform").val()
+		time = $("#filterTime").val()
+		$.get( "/payment/filter-payments/{{data.app.id}}/?platform=" + val + "&time=" + time, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	$("#filterTime").change(function(e){
+		val = $("#filterPlatform").val()
+		time = $("#filterTime").val()
+		$.get( "/payment/filter-payments/{{data.app.id}}/?platform=" + val + "&time=" + time, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	
+</script>
+
+{%endblock%}

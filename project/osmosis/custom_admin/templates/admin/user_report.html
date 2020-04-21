@@ -1,0 +1,75 @@
+{% extends "admin/baseAdmin.html" %}
+
+{%block content%}
+
+<h1>User Report</h1>
+
+
+<div id="successMsg" style="color:green; display: none">Payment was successful.</div>
+<div id="errorMsg" style="color:red; display: none"></div>
+
+{{data.response}}
+
+
+<table>
+	<tr>
+		<td>ID</td>
+		<td>Email</td>
+		<td>Paypal Email</td>
+		<td>Threshold</td>
+		<td>Paid to Date</td>
+		<td>Available $</td>
+		<td>Total $</td>
+
+		<td>Manual Pay</td>
+	</tr>
+{% for user in data.users %}
+	<tr>
+		<td>{{user.id}}</td>
+		<td>{{user.email}}</td>
+		<td>{{user.paypal_email}}</td>
+		<td>{%if user.redeem_threshold > 0 %}${{user.redeem_threshold}}{%endif%}</td>
+		<td>${{user.get_amount_paid}}</td>
+		<td>${{user.get_redeemable}}</td>
+		<td>${{user.get_total}}</td>
+		<td>{%if user.get_redeemable > 0 %}
+			<button onclick="pay({{user.id}})">Pay ${{user.get_redeemable}}</button>
+			{%endif%}
+		</td>	
+	</tr>
+{%endfor%}
+</table>
+
+</div>
+
+
+<script type="text/javascript">
+
+	
+
+	
+	function pay(user_id){
+		
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/payment/admin-pay/", {"user_id":user_id}, function( data ) { 
+		  console.log(data)
+		  if (data.success){
+		  	$("#successMsg").show()
+		  	$("#successMsg").text(data.message)
+
+		  }
+		  else{
+		  	$("#errorMsg").show()
+		  	$("#errorMsg").text("There was an issue: "+data.message)
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+
+</script>
+
+{%endblock%}

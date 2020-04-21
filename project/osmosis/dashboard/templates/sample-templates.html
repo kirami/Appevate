@@ -1,0 +1,91 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+			
+
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h2 style="color:green">You've successfully saved your style settings</h2>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Sample Templates<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+                    <div class="col-md-12">
+                      <p>We have several different template styles for you to choose from, or you can modify ours or make your own!</p>
+                       <form action="#" class="registry-form form-validation smallCheckbox" method="POST" id="createProgramForm">
+                  {%csrf_token%}
+                  <input type="hidden" name="app" value="{{data.app.id}}" id="id_app">
+                      <div><input type="radio" name="editList" id="0" value="0" {%ifequal data.app.ui_style "0" %}checked=""{%endifequal%} />
+                        <label for="always">Default</label>
+
+                        <input type="radio" name="editList" id="1" value="1" {%ifequal data.app.ui_style "1" %}checked=""{%endifequal%}/>
+                        <label for="never">Apple</label>
+
+                        <input type="radio" name="editList" id="2" value="2" {%ifequal data.app.ui_style "2" %}checked=""{%endifequal%}/>
+                        <label for="change">Red</label>
+
+                        <input type="radio" name="editList" id="3" value="3" {%ifequal data.app.ui_style "3" %}checked=""{%endifequal%}/>
+                        <label for="change">Custom</label>
+
+                        <div>Custom: Choose your own theme color!   <input type="text" name="themeColor" id="themeColor" value="{{data.app.custom_color}}"></div>
+
+
+                        
+                      </div>
+
+                        <button style="margin-bottom:20px;  min-width: 5.75rem;" class="btn btn-primary">Save</button>
+
+
+                        <iframe id="sampleIframe" src="/webframe/dashboard/sample/{{data.app.ui_style}}/"></iframe>
+
+              
+                    </div>
+                  </form>
+
+
+                    
+                  </div>
+               
+              </div>
+            </div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+  input[type=radio]{margin-right:5px;}
+  label{margin-right:15px;}
+  iframe{width:100%; height:1150px;}
+
+</style>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#sampleTemplatesLink").addClass("active")
+
+
+$(document).on('click', 'input[name="editList"]', function() {
+    
+    $("#sampleIframe").attr("src", "/webframe/dashboard/sample/" + $(this).val());
+    
+
+    console.log($(this).val())
+    console.log($("#sampleIframe").src)
+});
+
+
+</script>
+
+{%endblock%}
+
+	

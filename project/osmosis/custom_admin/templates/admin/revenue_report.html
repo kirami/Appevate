@@ -1,0 +1,36 @@
+{% extends "admin/baseAdmin.html" %}
+
+{%block content%}
+
+<div>
+Filter By Year: <select id="filterYear" style="margin-right:20px">
+	<option value="all">All</option>
+	
+	<option value="2018">2018</option>
+	<option value="2019">2019</option>
+	
+</select>
+
+</div>
+
+<h1>Revenue Report</h1>
+<h2>Payouts:</h2>
+<div>Total Payouts: ${{data.All_Payouts}}</div>
+<div>YTD Payouts: ${{data.YTD_Payouts}}</div>
+<br>
+<h2>Payments:</h2>
+<div>Total Payments: ${{data.All_Payments}}</div>
+<div>YTD Payments: ${{data.YTD_Payments}}</div>
+
+<script type="text/javascript">
+	
+	$("#filterYear").change(function(e){
+		val = $("#filterYear").val()
+		
+		window.location="/custom_admin/revenue-report/?year=" + val
+
+	})
+
+	</script>
+
+{%endblock%}

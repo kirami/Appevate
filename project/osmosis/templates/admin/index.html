@@ -1,0 +1,282 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/dashboard.css" %}" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+<div>
+
+<div class="app-account module">
+        <table>
+        <caption>
+            <a href="/admin/account/" class="section" title="Models in the Account application">Utils</a>
+        </caption>
+        
+            <tbody><tr class="model-account">
+                <th scope="row">
+                    <select onchange="location = this.value;">
+                        <option value="#">--</option>
+                        <option value="/custom_admin/payment_report/">Payment Report</option>
+                        <option value="/custom_admin/payout_report/">Payout Report</option>
+                        <option value="/custom_admin/manual-payout/">Run Manual Payout</option>
+                        <option value="/custom_admin/manual-payout/">Run Manual Payout</option>
+                        <option value="/custom_admin/user-report">User Report</option>
+                        <option value="/custom_admin/revenue-report">Revenue Report</option>
+                        <option value="/custom_admin/unit-tests">Unit Tests</option>
+                        <option value="/custom_admin/send-app-report">Send App Report</option>
+                        <option value="/custom_admin/erase-test-data">Erase Test Data</option>
+                        <option value="/custom_admin/send-test-emails">Send Test Emails</option>
+                    </select>
+
+                        </th>
+                <td></td>
+                <td></td>
+            </tr>
+           
+
+        
+        </tbody></table>
+        </div>
+
+</div>
+
+<div class="flex-row">
+                                        <div class="sm-8">
+                                            <div class="info-item">
+                                                <div class="heading-block">
+                                                    <strong class="title">Performance</strong>
+                                                    <div class="filter-block">
+                                                        <!-- custom select -->
+                                                        <select>
+                                                            <option class="hideme">Year</option>
+                                                            <option value="2019">2019</option>
+                                                            <option value="2018">2018</option>
+                                                            <option value="2017">2017</option>
+                                                            <option value="2016">2016</option>
+                                                        </select>
+                                                        <!-- custom select -->
+                                                        <select>
+                                                            <option class="hideme">Month</option>
+                                                            <option value="january">Jan.</option>
+                                                            <option value="february">Feb.</option>
+                                                            <option value="march">Mar.</option>
+                                                            <option value="april">Apr.</option>
+                                                            <option value="may">May</option>
+                                                            <option value="june">Jun.</option>
+                                                            <option value="july">Jul.</option>
+                                                            <option value="august">Aug.</option>
+                                                            <option value="september">Sept.</option>
+                                                            <option value="october">Oct.</option>
+                                                            <option value="november">Nov.</option>
+                                                            <option value="december">Dec.</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <img src="/static/images/img-05.png" srcset="/static/images/img-05-2x.png 2x" alt="image description">
+                                            </div>
+                                        </div>
+                                        <div class="sm-4">
+                                            <div class="info-item">
+                                                <div class="heading-block">
+                                                    <strong class="title">Top 3 Rewards</strong>
+                                                </div>
+                                                <img src="/static/images/img-06.png" srcset="/static/images/img-06-2x.png 2x" alt="image description">
+                                            </div>
+                                        </div>
+                                        <div class="sm-12">
+                                            <div class="info-item">
+                                                <div class="heading-block">
+                                                    <strong class="title">Payout History</strong>
+                                                    <div class="filter-block">
+                                                        <!-- custom select -->
+                                                        <select>
+                                                            <option value="page-1">Page 1</option>
+                                                            <option value="page-2">Page 2</option>
+                                                            <option value="page-3">Page 3</option>
+                                                            <option value="page-4">Page 4</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <!-- table block -->
+                                                <div class="table-responsive table-holder">
+                                                    <table class="table table-borderless">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="all" data-check-pattern="[name^='user-id']">
+                                                                        <label class="custom-control-label" for="all">all</label>
+                                                                    </div>
+                                                                </th>
+                                                                <th>id</th>
+                                                                <th>User Name</th>
+                                                                <th>Payout date</th>
+                                                                <th>Total Amount</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="first" name="user-id-1">
+                                                                        <label class="custom-control-label" for="first">first</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">109234</span></td>
+                                                                <td><strong class="name">John Doe</strong></td>
+                                                                <td><time datetime="2019-09-03">03 Sep 2019</time></td>
+                                                                <td>$<span class="amount">20.00</span></td>
+                                                                <td><span class="status badge badge-success">Completed</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="second" name="user-id-2">
+                                                                        <label class="custom-control-label" for="second">second</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">109345</span></td>
+                                                                <td><strong class="name">Martin Woode</strong></td>
+                                                                <td><time datetime="2019-09-01">01 Sep 2019</time></td>
+                                                                <td>$<span class="amount">45.00</span></td>
+                                                                <td><span class="status badge badge-primary">Processing</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="third" name="user-id-3">
+                                                                        <label class="custom-control-label" for="third">third</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">108673</span></td>
+                                                                <td><strong class="name">Emily Rose</strong></td>
+                                                                <td><time datetime="2019-08-31">31 Aug 2019</time></td>
+                                                                <td>$<span class="amount">108.90</span></td>
+                                                                <td><span class="status badge badge-primary">Processing</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="fourth" name="user-id-4">
+                                                                        <label class="custom-control-label" for="fourth">fourth</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">105567</span></td>
+                                                                <td><strong class="name">Ava Johnson</strong></td>
+                                                                <td><time datetime="2019-08-31">31 Aug 2019</time></td>
+                                                                <td>$<span class="amount">13.45</span></td>
+                                                                <td><span class="status badge badge-warning">On hold</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="fifth" name="user-id-5">
+                                                                        <label class="custom-control-label" for="fifth">fifth</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">104563</span></td>
+                                                                <td><strong class="name">Jerry Howard</strong></td>
+                                                                <td><time datetime="2019-08-27">27 Aug 2019</time></td>
+                                                                <td>$<span class="amount">45.23</span></td>
+                                                                <td><span class="status badge badge-success">Completed</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input type="checkbox" class="custom-control-input" id="sixth" name="user-id-6">
+                                                                        <label class="custom-control-label" for="sixth">sixth</label>
+                                                                    </div>
+                                                                </td>
+                                                                <td><span class="id">109892</span></td>
+                                                                <td><strong class="name">Micheal Doe</strong></td>
+                                                                <td><time datetime="2019-08-25">25 Aug 2019</time></td>
+                                                                <td>$<span class="amount">50.00</span></td>
+                                                                <td><span class="status badge badge-danger">Cancelled</span></td>
+                                                                <td>
+                                                                    <div class="link-holder">
+                                                                        <a class="edit" href="#"><i class="icon-edit"></i></a>
+                                                                        <a class="delete" href="#"><i class="icon-bin"></i></a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent actions' %}</h2>
+        <h3>{% trans 'My actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

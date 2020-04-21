@@ -1,0 +1,27 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+								<div class="container">
+									<div class="text-block">
+										<h1>Dashboard</h1>
+									</div>
+<h1>Programs</h1>
+<div>These are your programs for App: {{data.app.name}}</div>
+
+<div>Active:</div>
+<div>{{data.app.get_active_program}}</div>
+
+<div>Inactive:</div>
+{%for program in data.programs %}
+
+	{%if not program.is_active%}
+		<div><a href="/program-detail/{{program.id}}">{{program.name}}</a></div>
+	{%endif%}
+{%endfor%}
+
+</div>
+</div>
+
+{%endblock%}

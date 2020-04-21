@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+</head>
+
+<body>
+<div id="header">
+	<div class="left">Appivator Admin</div>
+	<div class="right">
+		<div>APP ID: <span class="appId"></span></div>
+		<div><span class="appURL"></span></div>
+	</div>
+</div>
+<div id="content">
+	<div id="leftMenu" class="left" style="margin-left:0; padding-left:2%; padding-right:2%; padding-bottom: 13%">
+		<div class="boxHeader">Programs</div>
+		<div class="box">
+			<div><a herf="/appivator/dashboard" style="cursor: pointer;">Create Program</a></div>
+			<div><a herf="/appivator/programs">Active Program</a></div>
+			<div><a onclick="">Inactive Programs</a></div>
+		</div>
+		<div class="boxHeader">Documentation</div>
+		<div class="box">
+			<div><a onclick="">API Webhooks</a></div>
+			<div><a onclick="">Event Tracking</a></div>
+			<div><a onclick="">Rewards Tracking</a></div>
+		</div>
+		<div class="boxHeader">Design</div>
+		<div class="box">
+			<div><a onclick="">User Interface</a></div>
+			<div><a onclick="">Custom CSS</a></div>
+			<div><a onclick="">Sample Templates</a></div>
+		</div>
+	</div>
+	<div class="rightContent">
+		<div class="paymentButton"><a href="/appivator/payment"><button class="button">Billing and Payments</button></a></div>
+		<div class="clear"></div>
+		<div class="rightInner">
+			<div></div>
+			<div>This is your active program...</div>
+			<div class="contentBox">
+				<div class="" style="background-color: white"> 
+		<div class="">
+			<form id="connectForm">
+				<div id="successMsg" style="display:none; color:green">You have successfully saved your program information.</div>
+				<p><label for="name">NAME:</label> <input id="name" maxlength="255" name="name" type="text" class="inputClass"></p>
+        <p><label for="budget">BUDGET: $</label><input id="budget" maxlength="255" name="budget" type="text" class="inputClass"></p>
+        <p><label for="CPA">CPA:</label> <input id="CPA" maxlength="255" name="CPA" type="checkbox"></p>
+        <p><label for="CPM">CPM:</label> <input id="CPM" maxlength="255" name="CPM" type="checkbox"></p>
+                <p><label for="CPC">CPC:</label> <input id="CPC" maxlength="255" name="CPC" type="checkbox"></p>
+			</form>
+
+		</div>
+	</div>
+			</div>
+			<div><button onclick="editProgram()" class="button">Edit</button></div>
+		</div>
+	</div>
+
+</div>
+
+<script src="/static/js/config.js"></script>
+<script src="/static/js/appivator.js"></script> 
+<script type="text/javascript">
+	APPIVATOR_URL = "http://127.0.0.1:8080"
+	var api_key = appConfig.api_key;
+	var api_secret = appConfig.api_secret;
+
+	id = 1;
+
+	appivator = new Appivator({
+	  	'api_key':api_key,
+	  	'api_secret':api_secret,
+
+    });
+
+    programId = 0
+
+	appivator.getAppData()
+
+	appivator.getProgramData(true)
+	
+	function editProgram(){
+
+		error = false;
+			$("#inputError").hide()
+			
+			$(".inputClass").removeClass('required')
+
+			if (!$("#budget").val() ){
+
+				$("#budget").addClass('required')
+				error = true
+			}
+
+			if (!$("#name").val() ){
+
+				$("#name").addClass('required')
+				error = true
+			}
+
+			if (error){
+				$("#inputError").show()
+				return
+			}
+
+			userInfo = null;
+			data = "name=" + $("#name").val() + "&budget=" + $("#budget").val() //+ "&app=" + $(".appId").text()
+
+			if ($('#CPA').is(':checked')){
+				data += "&CPA=true" 
+			}else{
+				data += "&CPA=false" 
+			}
+			if ($('#CPC').is(':checked')){
+				data += "&CPC=true" 
+			}else{
+				data += "&CPC=false" 
+			}
+			
+			if ($('#CPM').is(':checked')){
+				data += "&CPM=true" 
+			}else{
+				data += "&CPM=false" 
+			}
+		
+			options = {
+	            "onload": function() {           
+	            	res = JSON.parse(this.responseText);   
+	                $("#successMsg").show()
+	            },
+	            "onerror": function() {console.log("bad")
+	        	},
+	        	"post_data": data
+	        }
+	        CORS.patch( APPIVATOR_URL + "/api/program/"+programId+"/?api_key="+this.api_key + "&api_secret="+this.api_secret, options)
+       
+	       	
+	}
+
+</script>
+
+
+</body>
+
+</html>

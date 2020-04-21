@@ -1,0 +1,177 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+    <style type="text/css">
+    	/*#setup .center{text-align: center; margin-top: 40px;}
+    	#welcome{}
+
+	   	.wrapper {
+		    float: left;
+		    position: relative;
+		    left: 50%;
+		}
+
+		.content {
+		    float: left;
+		    position: relative;
+		    left: -50%;
+		    margin-top:25px;
+		}
+
+		.clear{clear:both;}
+
+		label{display: inline-block; width:150px;}
+		input{width:250px; height: 25px}
+		button{padding:10px 30px !important;}
+		body{color:rgb(115, 135, 156); margin:0px;}
+
+		.left{float:left; margin-left:5%; }
+		.right{float:right; margin-right:5%; }
+
+		#header{border-bottom: 2px solid black; padding-top:20px; padding-bottom: 40px; background: rgb(217, 222, 228);}
+
+		.content div{margin-bottom: 45px; margin-left:auto; margin-right:auto; width:70%;}
+
+		.box{padding:20px; border: 1px solid black;}
+		.box div{margin-bottom:15px;}
+
+		#leftMenu{padding-top:20px; margin-left:2%; background-color: #2A3F54; color:white;}
+		.boxHeader{padding-bottom: 5px; margin-top:20px;}
+		.rightContent{float:left; width:80%;}
+		.contentBox{ border:1px solid black; padding:80px 0px; text-align: center}
+		.paymentButton{float:right; margin-top:30px; margin-bottom: 10px }
+		.paymentButton button {font-size: 16px;}
+		.rightInner{margin-left:10%; margin-right:10%;}
+		.rightInner div{margin-bottom: 20px;}
+		.rightInner button{float:right; font-size: 16px; margin-top:10px;}
+		.button{background-color:rgb(51, 122, 183); color:white;} */
+    </style>
+</head>
+
+<body>
+<div id="header">
+	<div class="left">Appivator Admin</div>
+	<div class="right">
+		<div>APP ID: <span class="appId">12345</span></div>
+		<div><span class="appURL">MyOsqa.com</span></div>
+	</div>
+</div>
+<div id="content">
+	<div id="leftMenu" class="left" style="margin-left:0; padding-left:2%; padding-right:2%; padding-bottom: 13%">
+		<div class="boxHeader">Programs</div>
+		<div class="box">
+			<div><a href="/appivator/dashboard">Create Program</a></div>
+			<div><a href="/appivator/programs">Active Program</a></div>
+			<div><a onclick="">Inactive Programs</a></div>
+		</div>
+		<div class="boxHeader">Documentation</div>
+		<div class="box">
+			<div><a onclick="">API Webhooks</a></div>
+			<div><a onclick="">Event Tracking</a></div>
+			<div><a onclick="">Rewards Tracking</a></div>
+		</div>
+		<div class="boxHeader">Design</div>
+		<div class="box">
+			<div><a onclick="">User Interface</a></div>
+			<div><a onclick="">Custom CSS</a></div>
+			<div><a onclick="">Sample Templates</a></div>
+		</div>
+	</div>
+	<div class="rightContent">
+		<div class="paymentButton"><a href="/appivator/dashboard"><button class="button">Dashboard</button></a></div>
+		<div class="clear"></div>
+		<div class="rightInner">
+			<div style="margin-top:30px;">Now we need to set up payment information. We invoice bi-weekly and our service charge is 5%.</div>
+			<div class="contentBox">
+				<div class="" style="background-color: white"> 
+		<div class="">
+			<form id="connectForm">
+				<div id="inputError" style="display:none; color:red">Fields in red are required</div>
+				<div id="successMsg" style="display:none; color:green">You have successfully saved your account information.</div>
+				<p><label for="stripe_id">STRIPE ID:</label> <input id="stripe_id" maxlength="255" name="stripe_id" type="text" class="inputClass"></p>
+        <p><label for="stripe_account">STRIPE ACCOUNT:</label><input id="stripe_account" maxlength="255" name="stripe_account" type="text" class="inputClass"></p>
+
+			</form>
+
+		</div>
+	</div>
+			</div>
+			<div><button class="button" onclick="submitStripe()">Next</button></div>
+		</div>
+	</div>
+
+</div>
+
+<script src="/static/js/config.js"></script>
+<script src="/static/js/appivator.js"></script> 
+<script type="text/javascript">
+	APPIVATOR_URL = "http://127.0.0.1:8080"
+	var api_key = appConfig.api_key;
+	var api_secret = appConfig.api_secret;
+
+	id = 1;
+
+	appivator = new Appivator({
+	  	'api_key':api_key,
+	  	'api_secret':api_secret,
+
+    });
+
+	appivator.getAppData()
+
+	function submitStripe(){
+
+		error = false;
+		$("#inputError").hide()
+		
+		$(".inputClass").removeClass('required')
+
+		if (!$("#stripe_id").val() ){
+
+			$("#stripe_id").addClass('required')
+			error = true
+		}
+
+		if (!$("#stripe_account").val() ){
+
+			$("#stripe_account").addClass('required')
+			error = true
+		}
+
+		if (error){
+			$("#inputError").show()
+			return
+		}
+
+		data = "stripe_account=" + $("#stripe_account").val() + "&stripe_id="+ $("#stripe_id").val() 
+
+
+        options = {
+            "onload": function() {           
+            	res = JSON.parse(this.responseText);   
+                $("#successMsg").show()
+            },
+            "onerror": function() {console.log("bad")
+        	},
+        	"post_data": data
+        }
+        CORS.patch( url + "/api/app/"+appInfo.id+"/?api_key="+this.api_key + "&api_secret="+this.api_secret, options)
+       
+
+	}
+	
+
+
+</script>
+
+
+</body>
+
+</html>

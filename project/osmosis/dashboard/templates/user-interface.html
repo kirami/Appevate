@@ -1,0 +1,156 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+			
+
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">You've successfully created your program!</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>User Interface<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="programName" class="col-md-12 col-form-label">Here is what it will look and feel with sample data. You are welcome to use your own CSS for your own feel.</label>
+
+                     <div>
+                        <input type="radio" name="editList" id="0" value="0"  />
+                        <label for="always">Desktop</label>
+                        <div>
+                          <input type="radio" name="editList" id="1" value="1" checked=""/>
+                          <label for="never">Mobile</label>
+                          <select id="mobileSelect" >
+                            <option value="iphoneX">Iphone X</option>
+                            <option value="iphone8Plus">Iphone 8 Plus</option>
+                            <option value="iphone8">Iphone 8</option>
+                            <option value="galaxy">Galaxy</option></select>
+                        </div>
+                        <div>
+                          <input type="radio" name="editList" id="2" value="2" />
+                          <label for="never">Tablet</label>
+                          <select id="mobileSelect" >
+                            <option value="iPadPro">iPadPro</option>
+                            <option value="galaxyTab10">Samsung Galaxy Tab 10</option>
+                          </select>
+                        </div>
+
+                      </div>
+                        <div style="clear:both"></div>
+                    
+                  </div>
+                  <div>
+                     <iframe id="sampleIframe" src="/webframe/dashboard/1/"></iframe>
+                    </div>
+               
+              </div>
+            </div>
+		</div>
+		
+
+	</div>
+</div>
+
+<style type="text/css">
+  input[type=radio]{margin-right:5px;}
+  label{margin-right:15px;}
+  iframe{width:100%; height:1150px;}
+
+</style>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#UILink").addClass("active")
+
+/*
+$(document).on('click', 'input[name="editList"]', function() {
+    $("#sampleIframe").attr("width", '600px');
+    console.log($(this).val())
+
+    //$("#sampleIframe").contentWindow.location.reload();
+   
+});
+
+*/
+
+
+ $("#sampleIframe").css("width",375)
+
+$(document).on('click', 'input[name="editList"]', function() {
+    $("#sampleIframe").css("width",375)
+    
+    console.log("click: " + $(this).val())
+    if($(this).val() == "1"){
+      console.log("IN")
+      $("#mobileSelect").show()
+
+     }
+    
+    });
+
+
+$(document).on('change', '#mobileSelect', function() {
+
+
+  $('#1').prop( "checked", true );
+
+  switch($(this).val()) {
+    case "Galaxy S9+":
+      $("#sampleIframe").css("width",360)
+      $('#1').prop( "checked", true );
+      break;
+    case "iphoneX":
+      $("#sampleIframe").css("width",375)
+      $('#1').prop( "checked", true );
+      break;
+    case "iphone8":
+      $("#sampleIframe").css("width",414)
+      $('#1').prop( "checked", true );
+      break;
+    case "iphone8Plus":
+      $("#sampleIframe").css("width",375)
+      $('#1').prop( "checked", true );
+      break;
+    case "iPadPro":
+      $("#sampleIframe").css("width",1024)
+      $('#2').prop( "checked", true );
+      break;
+    case "galaxyTab10":
+      $("#sampleIframe").css("width",800)
+      $('#2').prop( "checked", true );
+      break;
+    default:
+      // code block
+  } 
+
+/*
+  if($(this).val()=="galaxy")
+    $("#sampleIframe").css("width",500)
+
+  if($(this).val()=="iphoneX")
+    $("#sampleIframe").css("width",375)
+  if($(this).val()=="iphone8Plus")
+    $("#sampleIframe").css("width",414)
+  if($(this).val()=="iphone8")
+    $("#sampleIframe").css("width",375)
+
+  if($(this).val()=="iphone8")
+    $("#sampleIframe").css("width",375)
+
+  1024
+  */
+
+
+})
+
+</script>
+
+{%endblock%}
+

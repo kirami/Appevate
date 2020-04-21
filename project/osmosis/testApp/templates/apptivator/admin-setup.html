@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+    	#setup .center{text-align: center; padding-top: 40px; background-color: rgb(247, 247, 247);) }
+    	#welcome{}
+
+    	.mainBody{background-color:#EDEDED; margin-top:50px;}
+
+	   	.wrapper {
+		    float: left;
+		    position: relative;
+		    left: 50%;
+		}
+
+		.content {
+		    float: left;
+		    position: relative;
+		    left: -50%;
+		    padding-top:25px;
+		}
+
+		.clear{clear:both;}
+
+		label{display: inline-block; width:120px;}
+		input{width:250px;}
+		button{padding:10px 30px !important;}
+
+		.content div{padding-bottom: 45px; margin-left:auto; margin-right:auto; width:74%;}
+
+		body{color:rgb(115, 135, 156)}
+		.button{background-color:rgb(51, 122, 183); color:white;}
+    </style>
+</head>
+
+<body class="mainBody">
+	
+<div id="setup" style="width:94%; margin-left: 45px;">
+	<div class="center" style="font-weight: bold">SETUP</div>
+
+	<div class="wrapper"> 
+		<div class="content center">
+			<div>Success!  You are now connected to your Appivator account.  To directly link to your Appivator adminstration page.  Please create a menu item in yur admin panel for Appivator Dashboard and point it to the following URL:</div>
+			
+			<div>http://myosqa.com/appivator/<span id="appId">12345</span>/admin</div>
+			<div>
+				You may also bookmark this URL in your browser if you plan on visiting it outside of your native panel.</div>
+
+			<div>If you ever loose the URL or can’t access your admin panel, you can view all the same material through your appivator dashboard page using your standard account credentials.</div>
+
+			<div>You will be directed to your Appivator dashboard upon clicking finish.</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="center" style="padding-bottom: 200px;"><button id="finishButton" class="button">FINISH</button></div>
+
+</div>
+
+
+</body>
+
+</html>

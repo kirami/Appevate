@@ -1,0 +1,49 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+			<h1>Integration Information</h1>
+		</div>
+		
+		<div>
+			{%if not request.user.verified%}
+				<div style="color:green">Please verify your email address by clicking <a href="/accounts/verifyEmail/?email={{request.user.email}}&code={{request.user.verify_code}}" target="__blank">here.</a></div>
+
+			{%endif%}
+
+			<div style="  margin-top:25px;">Appevate uses REST API for collection and transfer of data.  This way you have complete control over the look and experience of your Appevate program, mas well as the data you want to track and reward.  Once Appevate is successfully integrated on your platform, you will be able to administrate the creation and rewards all from your existing admin panel.  This not only keeps your data safe, it also puts you in total control of how your users engage with Appevate.</div>
+	
+			<div class="wrap">
+				<div class="content">
+					<div><span style="font-weight: bold">Step 1:</span> Copy and save the following API information (you will input it once integrated)</div>
+					<div><span class="label">APP ID:</span> {{data.app}}</div>
+					<div><span class="label">APP KEY:</span> {{data.key}}</div>
+					<div><span class="label">APP SECRET:</span> {{data.secret}}</div>
+					<div style="margin-top: 35px;"><span style="font-weight: bold">Step 2:</span> Download the integration package and unzip to a custom root directory (EX. yoursite.com/appevate)</div>
+					 <a href="{% static 'testApp.zip' %}" download> <button style=" background-color: rgb(80,220,100)" class="tickets_btn">Download</button></a>
+
+					<div style="margin-top:35px;">Step 3: Navigate to the directory of the unzipped contents and follow the setup instructions.</div>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+	</div>
+
+</div>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#inactiveProgramsLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}

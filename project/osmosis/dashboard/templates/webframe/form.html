@@ -1,0 +1,167 @@
+{% extends 'webframe/base.html' %}
+
+{% load static %}
+{% load offer_filters %}
+
+{%block content%}
+
+<main id="main">
+  <div class="page-slider">
+    <div class="page-slide">
+      <div class="container">
+
+        <div class="card">
+        <h3 class="card-title">PAYMENT SETTINGS</h3>
+        <ul class="info-list">
+          <li>
+            <div class="wrapp">
+              <div class="img-box logo-item">
+                <img src="/static/images/venmo.svg" alt="image description">
+              </div>
+              <div class="holder">
+                <div class="text-box">
+                  <h4>Venmo <span>(primary)</span></h4>
+                  <input type="text" class="email" name="email" readonly data-value="email@testtest.com" value="{{data.user.venmo_email}}">
+                </div>
+                <a class="btn btn-sm btn-light btn-edit" href="./index.html">Edit</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="wrapp">
+              <div class="img-box logo-item">
+                <img src="/static/images/paypal.svg" alt="image description">
+              </div>
+              <div class="holder">
+                <div class="text-box">
+                  <h4>PayPal <span>(secondary)</span></h4>
+                  <input type="text" class="email" name="email-paypal" readonly data-value="email@testtest.com" value="{{data.user.paypal_email}}">
+                </div>
+                <a class="btn btn-sm btn-light btn-edit" href="./index.html">Edit</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="wrapp">
+              <div class="img-box logo-item">
+                <img src="/static/images/master-card.svg" alt="image description">
+              </div>
+              <div class="holder">
+                <div class="text-box">
+                  <h4>MasterCard <span>(secondary)</span></h4>
+                  <input type="text" class="card-field" name="email" readonly data-value="1111 1111 1111 7958" value="ending -7958">
+                </div>
+                <a class="btn btn-sm btn-light btn-edit" href="./index.html">Edit</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        </div>
+      </div>
+    </div> 
+  </div>
+</main>
+<!--
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<style type="text/css">
+
+label{font-size:35px; display: inline-block;}
+input{border:1px solid black; width:400px; height:100px;}
+  .left {
+    width: 10%;
+    padding-top: 15px;
+    padding-left:5%;
+  }
+
+  .center {
+    flex-grow: 1;
+    text-align: center; 
+    
+  }
+
+  .right {   
+    
+    padding-top: 15px;
+  }   
+
+  .container {
+   display: flex;
+  background-color: rgb(0, 136, 209)
+  }
+
+body{margin:0px;}
+
+.dropdown-content a {
+
+    width: 500px;
+    height: 100px;
+    font-size: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: white;
+    color:black;
+}
+
+body{font-size: 40px}
+
+.button{font-size:30px; background-color: rgb(0, 136, 209); color:white; padding:15px 30px;}
+
+  .middleContainer{width:60%; margin:0 auto; margin-top:5%;}
+  .middleContainer button{font-style: 16px; padding:15px 30px; border:1px solid black;}
+
+  .middleLeft{float:left; font-size:24px;}
+  .middleRight{float:right; font-size:24px;}
+
+  .clear{clear:both;}
+
+  .topicInfo{margin-bottom:3%;}
+
+  .infoDiv{margin-top:50px;}
+  .box{border: 1px solid rgb(0, 136, 209); padding:4%; margin-right:10%;}
+  
+</style>
+
+
+<div class="container" style="margin-top:5%; background-color: white">
+	<div class="left"> 
+		<a href="/webframe/dashboard/{{data.user.id}}"><button class="button" >DASHBOARD</button></a>
+	</div>
+	<div  class="center" style="margin-right: -10%; margin-top:20px"><div >Settings</div></div>
+
+	<div class="right" style="margin-right:5%"><button style="cursor: pointer; visibility: hidden" class="button" onclick="redeemCash()">REDEEM CASH</button></div>
+</div>
+
+<div style="clear:both"></div>
+<div style="margin-top:50px">
+	{%if data.saved%}<div style="text-align: center; color: green">You've saved your settings</div>{%endif%}
+	<div style="text-align: center">Redeem Cash Using</div>
+	   <div><img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_150x94.png" width="100px;" style="float:left; margin-left:5%; margin-right:2%"></div>
+    <div style="clear:both"></div>
+    
+ <form action="" method="post">
+	  	{%csrf_token%}
+    <div style="margin-left:5%;"><label for="paypal-email">Paypal Email:</label> <input id="paypal-email" maxlength="255" name="paypal-email" type="email" style="margin-left:30px; font-size:35px" required="" value="{{data.user.paypal_email}}"></div>
+
+
+    <div style="margin-left:5%; margin-top: 20px"><label for="threshold">Auto Redemption Threshold:</label> <input id="threshold" maxlength="255" name="threshold" type="text" style="margin-left:30px; font-size:35px"  value="{{data.user.redeem_threshold}}"></div>
+
+    <div style="text-align: center">
+  <button class="centerButton" style="font-size:30px; margin-top:30px;background-color: rgb(0, 136, 209); color:white; padding:15px 30px;" type="submit" >SAVE</button>
+	</div>
+</form>
+</div>
+
+</body>
+
+</html>
+-->

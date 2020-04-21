@@ -1,0 +1,108 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Connect</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+    	#setup .center{text-align: center; margin-top: 40px;}
+    	#welcome{}
+
+	   	.wrapper {
+		    float: left;
+		    position: relative;
+		    left: 50%;
+		}
+
+		.content {
+		    float: left;
+		    position: relative;
+		    left: -50%;
+		    margin-top:25px;
+		}
+
+		.clear{clear:both;}
+
+		label{display: inline-block; width:150px;}
+		input{width:250px; height: 25px}
+		button{padding:10px 30px !important;}
+		body{color:rgb(115, 135, 156); margin:0px;}
+
+		.left{float:left; margin-left:5%; }
+		.right{float:right; margin-right:5%; }
+
+		#header{border-bottom: 2px solid black; padding-top:20px; padding-bottom: 40px; background: rgb(217, 222, 228);}
+
+		.content div{margin-bottom: 45px; margin-left:auto; margin-right:auto; width:70%;}
+
+		.box{padding:20px; border: 1px solid black;}
+		.box div{margin-bottom:15px;}
+
+		#leftMenu{padding-top:20px; margin-left:2%; background-color: #2A3F54; color:white;}
+		.boxHeader{padding-bottom: 5px; margin-top:20px;}
+		.rightContent{float:left; width:80%;}
+		.contentBox{ border:1px solid black; padding:50px 0px; text-align: center; padding-left:20px;}
+		.paymentButton{float:right; margin-top:30px; margin-bottom: 10px }
+		.paymentButton button {font-size: 16px;}
+		.rightInner{margin-left:10%; margin-right:10%;}
+		.rightInner div{margin-bottom: 20px;}
+		.rightInner button{float:right; font-size: 16px; margin-top:10px;}
+		.button{background-color:rgb(51, 122, 183); color:white;}
+    </style>
+</head>
+
+<body>
+<div id="header">
+	<div class="left">Appivator Admin</div>
+	<div class="right">
+		<div>APP ID: <span class="appId">12345</span></div>
+		<div><span class="appURL">MyOsqa.com</span></div>
+	</div>
+</div>
+<div id="content">
+	<div id="leftMenu" class="left" style="margin-left:0; padding-left:2%; padding-right:2%; padding-bottom: 13%">
+		<div class="boxHeader">Programs</div>
+		<div class="box">
+			<div><a onclick="">Create Program</a></div>
+			<div><a onclick="">Active Program</a></div>
+			<div><a onclick="">Inactive Programs</a></div>
+		</div>
+		<div class="boxHeader">Documentation</div>
+		<div class="box">
+			<div><a onclick="">API Webhooks</a></div>
+			<div><a onclick="">Event Tracking</a></div>
+			<div><a onclick="">Rewards Tracking</a></div>
+		</div>
+		<div class="boxHeader">Design</div>
+		<div class="box">
+			<div><a onclick="">User Interface</a></div>
+			<div><a onclick="">Custom CSS</a></div>
+			<div><a onclick="">Sample Templates</a></div>
+		</div>
+	</div>
+	<div class="rightContent">
+		<div class="paymentButton"><button class="button">Billing and Payments</button></div>
+		<div class="clear"></div>
+		<div class="rightInner" >
+			<div style="margin-top:30px;">Now we need to set up payment information. We invoice bi-weekly and our service charge is 5%.</div>
+			<div class="contentBox">
+				<div class="" style="background-color: white; text-align: left"> 
+					<div>List Your Custom Metrics: GET: https://apptivator.sharemagnet.net/api/metric/?api_key=37f1a25a8b9f4bc8a508fe26bd1a0fd3&api_secret=bf443cdc41eb4663bc3c73f2b4eeba8d</div>
+					<div>Add a Custom Metric: POST: https://apptivator.sharemagnet.net/api/metric/?api_key=37f1a25a8b9f4bc8a508fe26bd1a0fd3&api_secret=bf443cdc41eb4663bc3c73f2b4eeba8d<br><br>Params: Name, ProgramID</div>
+									<div>List Your Custom Actions: GET: https://apptivator.sharemagnet.net/api/action/?api_key=37f1a25a8b9f4bc8a508fe26bd1a0fd3&api_secret=bf443cdc41eb4663bc3c73f2b4eeba8d</div>
+
+	</div>
+			</div>
+			<div><button class="button">Next</button></div>
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+
+</html>

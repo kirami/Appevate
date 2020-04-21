@@ -1,0 +1,64 @@
+{% load offer_filters %}
+
+{% block content %}
+
+
+{%if data.mData%}
+
+	{%for items in data.mData%}
+
+	<div style="font-weight: bold">{{items.header}}:</div><br>
+	<table>
+	
+		{%for payment in items.payments%}
+			{% ifequal forloop.counter0|modulo:6 0 %}
+			<tr >
+			{%endifequal%}
+			<td style="padding-right:10px;">
+			<div>Id: {{payment.id}}</div>
+			<div>Platform: {{payment.platform}}</div>
+			<div>Program: {{payment.account.program}}</div>
+			<div>Amount: {{payment.amount}}</div>
+			<div>See <a href="">ledger itmes</a> &nbsp;</div>
+			<div>&nbsp;</div>
+			</td>
+			{% ifequal forloop.counter0|modulo:6 5 %}
+			</tr>
+			{%endifequal%}
+		{%endfor%}
+	
+	</table>
+	{%endfor%}
+{%else%}
+
+	{%for payment in data.payments%}
+			{% ifequal forloop.counter0|modulo:4 0 %}
+			<tr >
+			{%endifequal%}
+			<td style="padding-right:10px;">
+			<div>Id: {{payment.id}}</div>
+			<div>Platform: {{payment.platform}}</div>
+			<div>Program: {{payment.account.program}}</div>
+			<div>Amount: {{payment.amount}}</div>
+			<div>See <a href="">ledger itmes</a> &nbsp;</div>
+			<div>&nbsp;</div>
+			</td>
+			{% ifequal forloop.counter0|modulo:4 3 %}
+			</tr>
+			{%endifequal%}
+		{%endfor%}
+
+{%endif%}
+
+
+{%if not data.payments and not data.mData%}
+<div>There are no payments for this search.</div>
+
+{%endif%}
+
+
+
+
+
+
+{%endblock%}

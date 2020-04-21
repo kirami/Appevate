@@ -1,0 +1,89 @@
+
+{% extends "admin/baseAdmin.html" %}
+{% load offer_filters %}
+
+{%block content%}
+
+<div>
+
+<h1>Payment Report</h1>
+
+
+<div>All Payments:</div>
+{%if not data.payments%}
+<div style="margin-top: 10px">No payments have been made yet.</div>
+{%else%}
+<br>
+<div>
+Time: <select id="filterTime" style="margin-right:20px">
+	<option value="all">All</option>
+	<option value="week">By Days</option>
+	<option value="month">By Month</option>
+	<option value="year">By Year</option>
+</select>
+
+Status: <select id="filterStatus">
+	<option value="all">All</option>
+	<option value="waitPayout">Awaiting Payout</option>
+	<option value="waitPayment">Awaiting Payment</option>
+	<option value="paid">Paid</option>
+	
+</select>
+</div>
+<br>
+<div id="payments">
+	<table>
+{%for payment in data.payments%}
+			{% ifequal forloop.counter0|modulo:6 0 %}
+			<tr >
+			{%endifequal%}
+			<td style="padding-right:10px;">
+			<div>Id: {{payment.id}}</div>
+			<div>Platform: {{payment.platform}}</div>
+			<div>Amount: {{payment.amount}}</div>
+			<div>See <a href="">ledger itmes</a> &nbsp;</div>
+			<div>&nbsp;</div>
+			</td>
+			{% ifequal forloop.counter0|modulo:6 5 %}
+			</tr>
+			{%endifequal%}
+		{%endfor%}
+		</table>
+</div>
+{%endif%}
+
+</div>
+
+<script type="text/javascript">
+	
+	
+
+	$("#filterTime").change(function(e){
+		val = $("#filterStatus").val()
+		time = $("#filterTime").val()
+		$.get( "/custom_admin/payment/filter-payments/?time=" + time + "&status=" + val, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	$("#filterApp").change(function(e){
+		app = $("#filterApp").val()
+		time = $("#filterTime").val()
+		$.get( "/custom_admin/payment/filter-payments/?time=" + time + "&app=" + app, function( data ) {
+		  $( "#payments" ).html( data );
+		  
+		});
+
+	})
+
+	
+</script>
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,150 @@
+
+{% load staticfiles %}
+
+
+{% block content %}
+  <div class="container text-center">
+    <div class="margin-sm">
+      <div class="text-center">
+        <div class="max-640">
+          <h1>You're almost there</h1>
+          <p class="text-left">
+            Last Step! To activate your offer, you need to select one of our plans.
+            Our most popular plan is "Pay as you go". Choose a
+            <strong>Social Rebate</strong> plan to continue.
+        </div>
+      </div>
+      <div class="margin-sm max-640">
+        <form method="post" action="" id="payment-form">
+
+          {{ form.errors }}
+
+          {% csrf_token %}
+          {% include 'partials/form_field.html' with field=form.stripeToken hide_label=True %}
+          <p class="text-left"><em>1. Select your plan.</em></p>
+          <div class="text-left row">
+
+            <div class="col-md-6">
+              <select id="plan" name="plan">
+                {% for plan in PLAN_CHOICES %}
+                  <option value="{{ plan.0 }}">{{ plan.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="col-md-6">
+                {% for plan in plans %}
+                <p>{{ plan.name }}</p>
+                <ul>
+                  <li>{{ plan.meta.socialcontent_limit }} Maximum Social Content</li>
+                  <li>${{ plan.meta.price_per_activation }}0 charge per activation.</li>
+
+                  <li>{% widthratio plan.meta.conversion_revenue_charged 1 100 %}% conversion revenue charge</li>
+                </ul>
+                {% endfor %}
+            </div>
+
+
+          </div>
+          <div class="margin-sm">
+            <p class="text-left"><em>2. Enter payment information.</em></p>
+            <span class="payment-errors error"></span>
+
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <label>
+                  <span>Card Number</span>
+                  <input type="tel" size="20" class="cc-num"/>
+                </label>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <label>
+                  <span>CVC</span>
+                  <input type="text" size="4" class="cc-cvc" autocomplete="off"/>
+                </label>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <label>
+                  <span>MM/YYYY</span>
+                  <input type="text" size="2" class="cc-exp"/>
+                </label>
+              </div>
+            </div>
+
+            <div class="row margin-sm">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-6">
+                <p class="text-left"><small>
+                  You'll be charged monthly plus applicable
+                  taxes until you cancel your subscription. Previous charges won't
+                  be refunded when you cancel unless legally required. Your payment
+                  data is encrypted and secure. All amounts are in USD.
+                </small></p>
+              </div>
+            </div>
+
+            <div class="margin-sm">
+              <button class="pull-right button button-primary" type="submit">Activate</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+  <script type="text/javascript" src="https://js.stripe.com/v2"></script>
+
+  <script type="text/javascript">
+    Stripe.setPublishableKey("{{ STRIPE_PUBLIC_KEY }}")
+
+    $(function () {
+      $('.cc-num').payment('formatCardNumber');
+      $('.cc-cvc').payment('formatCardCVC');
+      $('.cc-exp').payment('formatCardExpiry');
+
+      $('#payment-form').submit(function (event) {
+        var $form = $(this);
+
+        // Disable the submit button to prevent repeated clicks
+        $form.find('button').prop('disabled', true);
+
+        var expiration = $('.cc-exp').payment('cardExpiryVal');
+        Stripe.card.createToken({
+          number: $('.cc-num').val(),
+          cvc: $('.cc-cvc').val(),
+          exp_month: (expiration.month || 0),
+          exp_year: (expiration.year || 0)
+        }, stripeResponseHandler);
+
+        // Prevent the form from submitting with the default action
+        return false;
+      });
+    });
+
+    function stripeResponseHandler (status, response) {
+      var $form = $('#payment-form');
+
+      if (response.error) {
+        // Show the errors on the form
+        $form.find('.payment-errors').text(response.error.message);
+        $form.find('button').prop('disabled', false);
+      } else {
+        // response contains id and card, which contains additional card details
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $('#id_stripeToken').val(token);
+        // and submit
+        $form.get(0).submit();
+      }
+    }
+
+  </script>
+  <script type="text/javascript">
+   $(function () {
+   });
+  </script>
+{% endblock %}

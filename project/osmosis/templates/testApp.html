@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Apptivator - Test App{% endblock %}</title>
+</head>
+<body>
+	
+<h1>Test App</h1>
+
+
+<div>
+	
+<div>App info:</div>
+	<div class="apiInfo" id=""></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/static/js/config.js"></script>
+<script src="/static/js/apptivator.js"></script> 
+<script type="text/javascript">
+	
+
+var api_key = appConfig.api_key;
+var api_secret = appConfig.api_secret;
+
+appivator = new Appivator({
+  	'api_key':api_key,
+  	'api_secret':api_secret,
+
+    });
+
+data = appivator.getAppData(1);
+console.log(data)
+
+</script>
+
+</body>

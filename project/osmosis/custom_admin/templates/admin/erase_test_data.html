@@ -1,0 +1,55 @@
+
+{% extends "admin/baseAdmin.html" %}
+{% load offer_filters %}
+
+{%block content%}
+
+<div>
+	Erase all Ledger, Action & User data for testing?
+	<button onclick="confirmErase()">Erase</button>
+	<br><br>
+	<div id="successMsg" style="color:green; display:none; font-size: 14px;">You successfully erased the data.</div>
+	<div id="errorMsg" style="color:red; display: none; font-size: 14px;">There was a problem.</div>
+</div>
+
+<script type="text/javascript">
+	
+	function confirmErase(){
+		console.log()
+		r = confirm("Are you sure you want to erase all this data?");
+		
+		if (r == true) {
+		  erase()
+		} else {
+		  
+		} 
+	}
+
+	function erase(){
+
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/custom_admin/erase-test-data/", {}, function( data ) { 
+		  
+		  if (data.success){
+		  	$("#successMsg").show()
+		  }
+		  else{
+		  	$("#errorMsg").show()
+		  	$("#errorMsg").text(data.response)
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+	
+</script>
+
+
+
+
+
+
+{%endblock%}

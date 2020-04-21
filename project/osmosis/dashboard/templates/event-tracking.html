@@ -1,0 +1,50 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+			
+
+
+			 <div class="text-block">
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">You've successfully created your program!</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Event Tracking<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+                
+                <div class="form-group row align-items-md-center justify-content-md-end">
+                    <label for="programName" class="col-md-4 col-form-label">Information</label>
+                    <div class="col-md-8">
+                      <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Suspendisse arcu aliquam, venenatis sapien.</p>
+
+                      <p>Lorem ipsum dolor sit amet, consect adipiscing elit. Suspendisse arcu aliquam, venenatis sapien.</p>                      
+                    </div>
+                    
+                  </div>
+               
+              </div>
+            </div>
+		</div>
+		
+
+	</div>
+</div>
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#event-trackingLink").addClass("active")
+</script>
+
+{%endblock%}
+
+
+
+	
+
+

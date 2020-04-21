@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Appevate</title>
+	<link rel="stylesheet" href="{% static 'css/rangle-styles.css' %}">
+</head>
+<body onload="loadHistory()">
+  <div id="main-settings">
+    <a id="back-button" href="/webframe/dashboard/{{user_id}}" class="button">Back</a>
+    <table id="settings-table">
+      <tr id="top-section">
+        <th>
+          <p id="table-title">AUTO-REDEMPTION</p>
+        </th>
+        <th>
+					<label class="switch">
+				  	<input type="checkbox">
+				  	<span class="slider round"></span>
+					</label>
+				</th>
+      </tr>
+			<tr>
+				<th>
+					<p id="table-title">REMPTION HISTORY</p>
+				</th>
+      </tr>
+    </table>
+  </div>
+  <div id="dialog-background">
+    <div id="dialog-container">
+			<h3 id="auto-redemption-title">AUTO-REDEMPTION</h3>
+			<input id="auto-input" type="text" name="auto-redemption" placeholder="Auto-redemption amount"/>
+			<table id="dialog-buttons">
+			  <tr>
+			    <th>
+						<button class="button">Cancel</button>
+					</th>
+			    <th>
+						<button class="button">Setup</button>
+					</th>
+			  </tr>
+			</table>
+    </div>
+  </div>
+	<script src="{% static 'js/rangle.js' %}"></script>
+</body>
+</html>

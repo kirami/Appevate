@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+
+<script src="https://appivator.sharemagnet.net/static/js/menu.js"></script>
+<link rel="stylesheet" type="text/css" href="https://appivator.sharemagnet.net/static/css/dropdown.css">
+<link rel="stylesheet" type="text/css" href="/static/css/user.css">
+
+
+<div class="container topHeader">
+  <div id="menu" class="left" style="padding-top:50px"> 
+    <div class="dropdown">
+      <a onclick="myFunction()" class="dropbtn" style="font-size:30px"> Menu</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> 
+  </div>
+  <div id="logo" class="center"><img id="logSrc" width=250px src="https://i.redd.it/vlagpuyoxisz.png"></div>
+  <div style="visibility: hidden" id="sideBar" class="right"><a href="/register"><button >Get Started</button></a></div>
+</div>
+<div class="clear"></div>
+
+
+
+<!--
+	<div style="font-size: 18px !important">If you are ready to start earning rewards for inviting people to engage with your content, we need a few things first...</div> -->
+
+
+
+<div class="middleContai ner wrapper">
+	<div class="content" style="font-size: 17px;">
+		<div style="margin-left:5%; margin-right:5%; margin-top:10%">Welcome to our rewards program, where we reward your content just for using our App!</div>
+		<div style="margin-top:7%;margin-left:5%; margin-right:5%">If you are ready to start earning rewards for inviting people to engage with your content, we need a few things first...</div>
+	<div style="text-align: center; margin-top:70px; font-size: 14px; font-weight: bold">Contact Info</div>
+	<form>
+		<div id="inputError" style="display:none; color:red">Fields in red are required</div>
+		<p style="margin-left:12%;"><label for="id_email" style="width:260px">Email:</label> <input id="id_email" maxlength="255" name="email" type="email" class="inputClass"></p>
+		<div style="clear:both"></div>
+
+		<p style="margin-left:12%;"><label for="id_phone">Phone Number:</label> <input id="id_phone" maxlength="255" name="email" type="email" class="inputClass"></p>
+
+		<div style="text-align: center;font-size: 14px; margin-top:75px; font-weight: bold">How Should We Pay You?</div>
+		<img src="https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg" width="50px" style="float:left;margin-left:5%;margin-right:2%">
+		<p style="margin-left:5%;"><label for="id_venmo_email" style="width:255px;">Username:</label> <input id="id_venmo_email" maxlength="255" name="email" type="email"></p>
+		<div style="clear:both"></div>
+		<img src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_150x94.png" width="50px;" style="float:left; margin-left:5%; margin-right:2%">
+		<p style="margin-left:5%;"><label for="id_phone">Paypal Email:</label> <input id="id_paypal_email" maxlength="255" name="email" type="email" style="margin-left:30px"></p>
+		<div style="clear:both"></div>
+		<div id="cbError" style="display:none; color:red">You must agree to our Terms of Service</div>
+		<p style="margin-top:70px; margin-left:5%;"><input id="id_tos_agree" name="tos_agree" type="checkbox" style="width:30px;margin-top:15px;" ><label for="id_tos_agree" style="width:490px; margin-left:15px; font-weight: bold; ">I Agree to Terms of Service:</label> </p>
+		
+	</form>
+	</div>
+</div>
+
+<div class="clear"></div>
+<div style="text-align: center">
+	<button class="centerButton" style="font-size:30px; margin-top:30px;background-color: rgb(0, 136, 209); color:white; padding:15px 30px;" onclick="saveAccountInfo()" >ALL DONE!</button>
+</div>
+
+<script src="/static/js/config.js"></script>
+<script src="/static/js/appivator.js"></script> 
+<script type="text/javascript">
+	var api_key = appConfig.api_key;
+	var api_secret = appConfig.api_secret;
+
+	id = 1;
+
+	appivator = new Appivator({
+	  	'api_key':api_key,
+	  	'api_secret':api_secret,
+
+    });
+
+	
+
+	function saveAccountInfo() { 
+
+
+		error = false;
+		$("#inputError").hide()
+		$("#cbError").hide()
+		$(".inputClass").removeClass('required')
+
+		if (!$('#id_tos_agree').is(':checked')){
+			console.log("err")
+			$("#cbError").show()
+			error = true
+		}
+
+		if (!$("#id_phone").val() ){
+
+			$("#id_phone").addClass('required')
+			error = true
+		}
+
+		if (!$("#id_email").val() ){
+
+			$("#id_email").addClass('required')
+			error = true
+		}
+
+		if (error){
+			$("#inputError").show()
+			return
+		}
+
+		options = {
+            "onload": function() {	
+            	window.location.href = "/appivator/user-dashboard"
+            },
+            "onerror": function() {},
+            "post_data": "phone_number=" + $("#id_phone").val() + "&email=" + $("#id_email").val() + "&paypal_email=" + $("#id_paypal_email").val() + "&venmo_email=" + $("#id_venmo_email").val()
+        }
+        
+        CORS.put( url + "/api/user/" + id+"/?api_key="+appivator.api_key + "&api_secret="+appivator.api_secret , options)
+        
+    }
+
+</script>
+
+</body>
+
+</html>

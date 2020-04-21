@@ -1,0 +1,17 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+{%if data.added%}<div class="success">Action Type successfully saved</div>{%endif%}
+<h1>Action Type: {{data.action_type.name}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ data.form.as_p }}
+    
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="/delete/action-type/{{data.action_type.id}}/"><button >Delete {{data.action_type.name}}</button></a>
+
+
+{%endblock%}

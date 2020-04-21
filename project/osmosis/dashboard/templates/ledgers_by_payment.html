@@ -1,0 +1,24 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+
+<button onclick="window.print();return false;" />Print Report</button>
+
+<h1>Ledgers for Payment on: {{data.payment.created}}</h1>
+
+
+
+
+<br>
+<div id="ledgers">
+{%for ledger in data.ledgers%}
+<div>Id: {{ledger.id}}</div>
+<div>User: {{ledger.user}}</div>
+<div>Program: {{ledger.action.action_type.program.name}}</div>
+<div>Amount: {{ledger.amount}}</div>
+<br>
+{%endfor%}
+</div>
+
+
+{%endblock%}

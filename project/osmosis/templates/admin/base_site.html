@@ -1,0 +1,31 @@
+{# Template: osmosis/templates/admin/base_site.html #}
+{% extends "admin/base.html" %}
+
+{% block title %}Appevate site admin{% endblock %}
+{% load staticfiles %}
+
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript" src="{% static "admin/js/vendor/jquery/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "admin/js/jquery.init.js" %}"></script>
+{% endblock %}
+{% block branding %}
+
+<style type="text/css">
+	
+		#branding{background-color: white}
+		#header{background-color: #0079b6}
+		.module h2, .module caption, .inline-group h2 {
+			background: #0079b6
+		}
+		.sidebar{background-color:#0af; color:white;}
+		.sidebar-right-arrow, .sidebar-title{color:white}
+		.sidebar-link, .sidebar-link:visited, .sidebar-link:hover{color:white !important}
+</style>
+
+
+<h1 id="site-name"><a href="{% url 'admin:index' %}">
+        <img style="width:150px" src="{% static 'images/logo.svg' %}" alt="Appevate"/>
+    </a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

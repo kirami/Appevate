@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%block head%}<div><a href="/user-dashboard">Back to Dashboard</a></div>{%endblock%}
+
+{% block content %}
+
+
+<div>Username: {{data.user.email}}</div>
+
+<div><a href="/user-dashboard/payments/{{data.user.id}}">View my payments</a></div>
+<div><a href="/user-dashboard/rewards/{{data.user.id}}">View my rewards</a></div>
+
+{%endblock%}

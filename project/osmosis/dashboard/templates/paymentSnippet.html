@@ -1,0 +1,48 @@
+
+{% block content %}
+
+
+{%if data.mData%}
+
+{%for items in data.mData%}
+
+<div style="font-weight: bold">{{items.header}}:</div><br>
+
+<div>
+	{%for payment in items.payments%}
+		<div>Id: {{payment.id}}</div>
+		<div>User: {{payment.account.user}}</div>
+		<div>Platform: {{payment.platform}}</div>
+		<div>Program: {{payment.account.program}}</div>
+		<div>Amount: {{payment.amount}}</div>
+		<div>See <a href="">ledger itmes</a> for this payment:</div>
+		<br>
+	{%endfor%}
+</div>
+{%endfor%}
+{%else%}
+
+{%for payment in data.payments%}
+<div>Id: {{payment.id}}</div>
+<div>User: {{payment.account.user}}</div>
+<div>Platform: {{payment.platform}}</div>
+<div>Program: {{payment.account.program}}</div>
+<div>Amount: {{payment.amount}}</div>
+<div>See <a href="">ledger itmes</a> for this payment:</div>
+<br>
+{%endfor%}
+
+{%endif%}
+
+
+{%if not data.payments and not data.mData%}
+<div>There are no payments for this search.</div>
+
+{%endif%}
+
+
+
+
+
+
+{%endblock%}

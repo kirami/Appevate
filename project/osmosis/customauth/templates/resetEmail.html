@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<main id="main">
+      <!-- registry section -->
+      <section class="registry-section">
+        <!-- arrow decor -->
+        <i class="icon-decor-arrow"></i>
+        <div class="container">
+            <div class="info-block">
+                <div class="text-block">
+                	<a style="margin-left:20px;" href="/accounts/login">&lt Back</a>
+                    <div class="form-holder">
+                        <h2>Password Reset</h2>
+                        {%if data.success%}<h3 style="color:green">We've sent a temporary password to {{data.email}}</h3>{%endif%}
+                        <div style="margin-bottom: 30px;"> Please enter in the account email you'd like to reset and we'll email you a temporary password.</div>
+                       
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group row align-items-md-center justify-content-md-end">
+                    
+			                    <label for="css_url" class="col-md-4 col-form-label">Email Address:</label>
+			                    <div class="col-md-8">
+			                      <input type="email"  class="form-control" id="email" name="email" placeholder="a@example.com"  {%if form.email.errors %}value="{{form.email.value | escape}}" {%else%}value="{{data.program.email}}"{%endif%} style="{%if form.email.errors %}border-color: #9e0b0f{%endif%}">
+			                    </div>
+	                   
+	                   		 	<span class="col-md-8 error-message">Please enter valid email</span>
+                  			</div>
+                            <button type="submit"  class="btn btn-primary">Reset Password</button>
+                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

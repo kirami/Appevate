@@ -1,0 +1,6 @@
+We've received a new messge:
+
+Name: {{name}}
+Email: {{email}}
+Subject: {{subject}}
+Message: {{message}}

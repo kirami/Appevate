@@ -1,0 +1,16 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+{%if data.added%}<div class="success">App successfully saved</div>{%endif%}
+<h1>App: {{data.app.name}}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ data.form.as_p }}
+    
+    <button type="submit">Save Changes</button>
+  </form>
+
+  <a href="/delete/app/{{data.app.id}}/"><button >Delete {{data.app.name}}</button></a>
+
+{%endblock%}

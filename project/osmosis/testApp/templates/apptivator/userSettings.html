@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+
+<script src="https://appivator.sharemagnet.net/static/js/menu.js"></script>
+<link rel="stylesheet" type="text/css" href="https://appivator.sharemagnet.net/static/css/dropdown.css">
+<link rel="stylesheet" type="text/css" href="/static/css/user.css">
+
+
+<div class="container topHeader" >
+  <div id="menu" class="left" style="padding-top:50px"> 
+    <div class="dropdown">
+      <a onclick="myFunction()" class="dropbtn" style="font-size:30px"> Menu</a>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div> 
+  </div>
+  <div id="logo" class="center"><img id="logSrc" width=250px src="https://i.redd.it/vlagpuyoxisz.png"></div>
+  <div style="visibility: hidden" id="sideBar" class="right"><a href="/register"><button >Get Started</button></a></div>
+</div>
+<div class="clear"></div>
+
+<div class="container" style="background-color: white; margin-top:7%">
+	<a href="/appivator/user-dashboard"><button class="button " style="margin-left:3%">Back</button></a>
+	<div class="header center" style=" font-weight: bold">SETTINGS</div>
+	 <div style="visibility: hidden" id="sideBar" class="right"><a href="/register"><button style="">Get Started</button></a></div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="middleContainer" style="margin-left: 9%">
+	<div class="middleLeft" style="margin-top:9%; font-size: 50px; font-weight: bold">Account Info</div>
+	<div class="middleRight"  id="editAccBtn"><button class="button" style="margin-top:40%; margin-left:70%; cursor: pointer;" onclick="editAccountInfo()">Edit</button></div>
+	<div class="clear"></div>
+	<div class="infoDiv">
+		<div class="topic">EMAIL</div>
+		<div class="topicInfo" id="emailDiv"></div>
+		<div class="topicInfo editInfo" id="emailInputDiv"><input type="email" id="emailInput"></div>
+		<div class="topic">PHONE</div>
+		<div id="phoneDiv"></div>
+		<div class="topicInfo editInfo" id="phoneInputDiv"><input type="text" id="phoneInput"></div>
+		<div style="display: none" id="saveAccBtn"><button  class="button" style="margin-left:70%; cursor: pointer;" onclick="saveAccountInfo()">Save</button></div>
+	</div>
+
+	<div style="margin-top:14%">
+		<div class="middleLeft" style=" font-size: 50px; font-weight: bold">To Redeem Cash</div>
+		<div class="middleRight" id="editPaymentBtn"><button  class="button" style="margin-left:70%; cursor: pointer;" onclick="editPaymentInfo()">Edit</button></div>
+		<div class="clear"></div>
+	</div>
+	<div class="infoDiv">
+		<div class="topic">VENMO (primary)</div>
+		<div class="topicInfo" id="venmoDiv"></div>
+		<div class="topicInfo editPaymentInfo" id="venmoInputDiv"><input type="text" id="venmoInput"></div>
+		<div class="topic">PAYPAL</div>
+		<div id="paypalDiv"></div>
+		<div class="topicInfo editPaymentInfo" id="paypalInputDiv"><input type="text" id="paypalInput"></div>
+		<div style="display: none" id="savePaymentBtn"><button  class="button" style="margin-left:70%; cursor: pointer;" onclick="savePaymentInfo()">Save</button></div>
+	</div>
+</div>
+
+<div class="clear"></div>
+<div style="text-align: center">
+	<button class="centerButton" style="font-size:30px; margin-top:16%;background-color: rgb(0, 136, 209); color:white; padding:15px 30px;" >ALL DONE!</button>
+</div>
+
+<script src="/static/js/config.js"></script>
+<script src="/static/js/appivator.js"></script> 
+<script type="text/javascript">
+	APPIVATOR_URL = "http://127.0.0.1:8080"
+	var api_key = appConfig.api_key;
+	var api_secret = appConfig.api_secret;
+
+	id = 1;
+
+	appivator = new Appivator({
+	  	'api_key':api_key,
+	  	'api_secret':api_secret,
+
+    });
+
+	appivator.getUserInfo(1)
+	userInfo = null;
+	
+	function updateUser(data) {
+		
+		res = JSON.parse(data);
+        userInfo =  new UserInfo({"id": res.id, 
+            "paypal_email": res.paypal_email, "phone_number": res.phone_number, "email": res.email})
+
+        $("#paypalDiv").text(userInfo.paypal_email)
+        $("#emailDiv").text(userInfo.email)
+        $("#phoneDiv").text(userInfo.phone_number)
+
+        $("#paypalInput").val(userInfo.paypal_email)
+        $("#emailInput").val(userInfo.email)
+        $("#phoneInput").val(userInfo.phone_number)
+        
+     }
+
+	function editAccountInfo(){
+		$(".editInfo").show()
+		$("#emailDiv").hide()
+		$("#phoneDiv").hide()
+		$("#editAccBtn").hide()
+		$("#saveAccBtn").show()
+
+	}
+
+	function saveAccountInfo(){
+
+	    options = {
+            "onload": function() { 
+            	updateUser(this.responseText) 
+
+            },
+            "onerror": function() {},
+            "post_data": "phone_number=" + $("#phoneInput").val() + "&email=" + $("#emailInput").val()
+        }
+        
+        CORS.put( url + "/api/user/" + id+"/?api_key="+appivator.api_key + "&api_secret="+appivator.api_secret , options)
+       
+
+		$(".editInfo").hide()
+		$("#emailDiv").show()
+		$("#phoneDiv").show()
+		$("#saveAccBtn").hide()
+		$("#editAccBtn").show()
+
+
+
+	}
+
+	function editPaymentInfo(){
+		$(".editPaymentInfo").show()
+		$("#venmoDiv").hide()
+		$("#paypalDiv").hide()
+		$("#savePaymentBtn").show()
+		$("#editPaymentBtn").hide()
+
+	}
+
+	function savePaymentInfo(){
+
+		options = {
+            "onload": function() { 
+            	updateUser(this.responseText) 
+
+            },
+            "onerror": function() {},
+            "post_data": "paypal_email=" + $("#paypalInput").val() + "&venmo_email=" + $("#venmoInput").val()
+        }
+        
+        CORS.put( url + "/api/user/" + id+"/?api_key="+appivator.api_key + "&api_secret="+appivator.api_secret , options)
+
+		$(".editPaymentInfo").hide()
+		$("#venmoDiv").show()
+		$("#paypalDiv").show()
+		$("#savePaymentBtn").hide()
+		$("#editPaymentBtn").show()
+
+	}
+
+</script>
+
+</body>
+
+</html>

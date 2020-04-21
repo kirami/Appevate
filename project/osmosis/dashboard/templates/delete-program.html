@@ -1,0 +1,101 @@
+{% extends 'dashboard.html' %}
+
+{% block container %}
+
+<div class="content">
+	<div class="container">
+		<div class="text-block">
+
+      {%if data.deleted%}
+      <div style="color:green">Your program has been successfully deleted</div>
+
+      {%else%}
+
+              <div class="form-holder">
+               {%if data.added%}<h1 style="color:green">Your changes have been saved.</h1>{%endif%}
+                <!-- heading with decor -->
+                <h1 class="heading-decor"><span><i class="icon-dot pink"></i><i class="icon-plus orange"></i></span>Delete Program<span><i class="icon-triangle orange"></i><i class="icon-plus blue"></i></span></h1>
+		      
+          {%if data.program.isActive%} <div style="color:#9e0b0f; margin-bottom: 15px;">You cannot delete active programs, please go to <a href="/dashboard/edit-program/{{data.program.id}}">here</a> to deactivate.</div> {%endif%}
+
+
+           {%if data.ledgers%} <div style="color:#9e0b0f; margin-bottom: 15px;">You cannot delete programs which are awaiting payment.</div> {%endif%}
+                
+
+             <form method="POST">
+              {%csrf_token%}
+                <div>{{data.program.name}}</div>
+                
+                <div class="flex-row">
+                    <div class="sm-8">
+                      <div class="info-item">
+                        <div class="heading-block">
+                          <strong class="title">Performance</strong>
+                          <div class="filter-block">
+                            <!-- custom select -->
+                            <select>
+                              <option class="hideme">Year</option>
+                              <option value="2019">2019</option>
+                              <option value="2018">2018</option>
+                              <option value="2017">2017</option>
+                              <option value="2016">2016</option>
+                            </select>
+                            <!-- custom select -->
+                            <select>
+                              <option class="hideme">Month</option>
+                              <option value="january">Jan.</option>
+                              <option value="february">Feb.</option>
+                              <option value="march">Mar.</option>
+                              <option value="april">Apr.</option>
+                              <option value="may">May</option>
+                              <option value="june">Jun.</option>
+                              <option value="july">Jul.</option>
+                              <option value="august">Aug.</option>
+                              <option value="september">Sept.</option>
+                              <option value="october">Oct.</option>
+                              <option value="november">Nov.</option>
+                              <option value="december">Dec.</option>
+                            </select>
+                          </div>
+                        </div>
+                        <img src="/static/images/img-05.png" srcset="/static/images/img-05-2x.png 2x" alt="image description">
+                      </div>
+                    </div>
+                  </div>
+                    
+                            
+               <div style="margin-top:20px">
+		              {%if data.program.isActive or data.ledgers%}
+                  <button type="submit"  class="btn btn-primary"  style="background-color: gray ">Delete</button></div>
+                  {%else%}
+                   <button type="submit" class="btn btn-primary">Delete</button></div>
+                  {%endif%}
+
+                </form>
+
+			</div>
+
+      {%endif%}
+          </div>
+		 </div>
+	</div>
+
+
+
+
+{%endblock%}
+
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#activeProgramLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}
+
+	

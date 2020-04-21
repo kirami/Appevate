@@ -1,0 +1,27 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+
+</style>
+
+<h1 style="margin-bottom: 15px">Program: {{data.program.name}}</h1>
+{%if data.added%}<div class="success">Metrif successfully added</div>{%endif%}
+
+
+<div style="margin-top:15px;">Add Custom Metric:</div>
+<form method="post">
+    {% csrf_token %}
+    {{ data.form.as_p }}
+    <input type="hidden" name="program" value="{{data.program.id}}">
+    <button type="submit">Create Metric</button>
+ </form>
+
+<div style="margin-top:20px"><a href="/custom-metrics/{{data.program.id}}">Custom Metrics</a></div>
+{%for metric in data.metrics%}
+<div><a href="/edit-metric/{{metric.id}}">{{metric.name}}:</a> {{metric.first.name}}/{{metric.second.name}}</div>
+{%endfor%}
+
+
+{%endblock%}

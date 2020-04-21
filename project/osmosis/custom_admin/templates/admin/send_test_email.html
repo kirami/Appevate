@@ -1,0 +1,95 @@
+
+{% extends "admin/baseAdmin.html" %}
+{% load offer_filters %}
+
+{%block content%}
+
+<div>
+	<h1>Send test emails</h1>
+	
+
+
+	<div class="app-account module">
+		<div style="margin-bottom: 20px;"><label>Recipient Email:</label><input type="text" name="sendTo" id="sendTo" required="true">
+
+			<div id="emailRequired" style="color:red; display: none">You must enter an email recipient</div>
+		</div>
+
+        <table>
+        <caption>
+            <a href="/admin/account/" class="section" title="Send Test Emails">Test Emails</a>
+        </caption>
+        
+            <tbody>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Welcome</a></th>
+                	<td><a onclick="sendEmail('welcome')" class="addlink">Send</a></td>
+            	</tr>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Verify</a></th>
+                	<td><a onclick="sendEmail('verify')" class="addlink">Send</a></td>
+            	</tr>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Redeem Cash</a></th>
+                	<td><a onclick="sendEmail('redeem')" class="addlink">Send</a></td>
+            	</tr>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Reset Password</a></th>
+                	<td><a onclick="sendEmail('resetPassword')" class="addlink">Send</a></td>
+            	</tr>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Password Changed</a></th>
+                	<td><a onclick="sendEmail('changedPassword')" class="addlink">Send</a></td>
+            	</tr>
+            	<tr class="model-account">
+            		<th scope="row"><a href="/admin/account/account/">Settings Changed</a></th>
+                	<td><a onclick="sendEmail('changedSettings')" class="addlink">Send</a></td>
+            	</tr>
+        
+        	</tbody></table>
+    </div>
+
+	<div style="clear:both"></div>
+	<br><br>
+	<div id="successMsg" style="color:green; display:none; font-size: 14px;">You successfully sent your email.</div>
+	<div id="errorMsg" style="color:red; display: none; font-size: 14px;">There was a problem.</div>
+</div>
+
+<script type="text/javascript">
+	
+	
+
+	function sendEmail(emailType){
+
+		if(! $("#sendTo").val()){
+			$("#emailRequired").show()
+			return
+		}
+
+		var csrftoken = getCookie('csrftoken');
+		ajaxSetup(csrftoken);
+
+		$.post( "/custom_admin/send-test-emails/", {"recipient":$("#sendTo").val(), "emailType":emailType}, function( data ) { 
+		  
+		  if (data.success){
+		  	$("#successMsg").show()
+		  }
+		  else{
+		  	console.log(data)
+		  	$("#errorMsg").show()
+		  	$("#errorMsg").text(data.response)
+		  }  
+		  
+		}); 
+		return false;
+	}
+
+	
+</script>
+
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,335 @@
+{% extends 'dashboard_base.html' %}
+
+{% block content %}
+
+<main id="main">
+			<!-- dashboard section -->
+			<div class="dashboard-section">
+				<!-- arrow decor -->
+				<i class="icon-decor-arrow"></i>
+				<div class="container">
+					<div class="dashboard-holder">
+						<a class="menu-opener" href="#"><span></span></a>
+						<!-- app block -->
+						<div class="app-block">
+							<div class="container">
+								<strong class="title"><i class="icon-cube"></i>APP: {{data.app.name}}</strong>
+								<!-- custom select -->
+								<!--
+								<select>
+									<option value="url-1">{{data.app.name}}</option>
+									<option value="url-2">https://kira.com</option>
+									<option value="url-3">https://kiras-store.com</option>
+									<option value="url-4">https://kiras-store.com.ua</option>
+								</select> -->
+							</div>
+						</div>
+						<div class="flex-row">
+							<!-- main navigation of the dashboard page -->
+
+							<nav class="main-nav" >
+								<ul class="menu-holder">
+									<li class="menu-open-close">
+										<a href="#" class="opener"><i class="icon-menu"></i>Menu</a>
+										<ul class="menu-list">
+											<li id="dashboardLink"><a href="/dashboard"><i class="icon-squares"></i><span>Dashboard</span></a></li>
+											<li id="settingsLink"><a href="/dashboard/settings"><i class="icon-settings"></i><span>Payment Settings</span></a></li>
+										</ul>
+									</li>
+									<li class="menu-open-close">
+										<a href="#" class="opener"><i class="icon-components"></i>Programs</a>
+										<ul class="menu-list">
+											<li id="createProgramLink"><a href="/dashboard/create-program/wizard/1"><i class="icon-plus-circle"></i><span>Create Program</span></a></li>
+											<li id="activeProgramLink"><a href="/dashboard/active-program/{{data.appId}}"><i class="icon-checked"></i><span>Active Programs</span></a></li>
+											<li id="inactiveProgramsLink"><a href="/dashboard/inactive-programs/{{data.appId}}"><i class="icon-pause"></i><span>Inactive Programs</span></a></li>
+										</ul>
+									</li>
+									<li class="menu-open-close">
+										<a href="#" class="opener"><i class="icon-file"></i>Documentation</a>
+										<ul class="menu-list">
+											<li id="webhooksLink"><a href="/dashboard/webhooks/{{data.appId}}"><i class="icon-webhook"></i><span>API Webhooks</span></a></li>
+											<li id="event-trackingLink"><a href="/dashboard/event-tracking/{{data.appId}}"><i class="icon-target"></i><span>Event Tracking</span></a></li>
+											<li id="rewardsLink"><a href="/dashboard/rewards-tracking/{{data.appId}}"><i class="icon-gift"></i><span>Rewards Tracking</span></a></li>
+										</ul>
+									</li>
+									<li class="menu-open-close">
+										<a href="#" class="opener"><i class="icon-browser"></i>Design</a>
+										<ul class="menu-list">
+											<li id="UILink"><a href="/dashboard/user-interface/{{data.appId}}"><i class="icon-interface"></i><span>User Interface</span></a></li>
+											<li id="CSSLink"><a href="/dashboard/custom-css/{{data.appId}}"><i class="icon-edit"></i><span>Custom CSS</span></a></li>
+											<li id="sampleTemplatesLink"><a href="/dashboard/sample-templates/{{data.appId}}"><i class="icon-template"></i><span>Sample Templates</span></a></li>
+										</ul>
+									</li>
+								</ul>
+							</nav>
+							<!-- contain the main content of the page -->
+							{%block container%}
+							
+						
+							{%if True %}
+
+
+							<div class="content">
+								<div class="container">
+									<div class="text-block">
+										<h1>Dashboard</h1>
+									</div>
+									<div class="flex-row">
+										<div class="sm-8">
+											<div class="info-item">
+												<div class="heading-block">
+													<strong class="title">Performance</strong>
+													<div class="filter-block">
+														<!-- custom select -->
+														<select>
+															<option class="hideme">Year</option>
+															<option value="2019">2019</option>
+															<option value="2018">2018</option>
+															<option value="2017">2017</option>
+															<option value="2016">2016</option>
+														</select>
+														<!-- custom select -->
+														<select>
+															<option class="hideme">Month</option>
+															<option value="january">Jan.</option>
+															<option value="february">Feb.</option>
+															<option value="march">Mar.</option>
+															<option value="april">Apr.</option>
+															<option value="may">May</option>
+															<option value="june">Jun.</option>
+															<option value="july">Jul.</option>
+															<option value="august">Aug.</option>
+															<option value="september">Sept.</option>
+															<option value="october">Oct.</option>
+															<option value="november">Nov.</option>
+															<option value="december">Dec.</option>
+														</select>
+													</div>
+												</div>
+												<img src="/static/images/img-05.png" srcset="/static/images/img-05-2x.png 2x" alt="image description">
+											</div>
+										</div>
+										<div class="sm-4">
+											<div class="info-item">
+												<div class="heading-block">
+													<strong class="title">Top 3 Rewards</strong>
+												</div>
+												<img src="/static/images/img-06.png" srcset="/static/images/img-06-2x.png 2x" alt="image description">
+											</div>
+										</div>
+										<div class="sm-12">
+											<div class="info-item">
+												<div class="heading-block">
+													<strong class="title">Payout History</strong>
+													<div class="filter-block">
+														<!-- custom select -->
+														<select>
+															<option value="page-1">Page 1</option>
+															<option value="page-2">Page 2</option>
+															<option value="page-3">Page 3</option>
+															<option value="page-4">Page 4</option>
+														</select>
+													</div>
+												</div>
+												<!-- table block -->
+												<div class="table-responsive table-holder">
+													<table class="table table-borderless">
+														<thead>
+															<tr>
+																<th>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="all" data-check-pattern="[name^='user-id']">
+																		<label class="custom-control-label" for="all">all</label>
+																	</div>
+																</th>
+																<th>id</th>
+																<th>User Name</th>
+																<th>Payout date</th>
+																<th>Total Amount</th>
+																<th>Status</th>
+																<th>Action</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="first" name="user-id-1">
+																		<label class="custom-control-label" for="first">first</label>
+																	</div>
+																</td>
+																<td><span class="id">109234</span></td>
+																<td><strong class="name">John Doe</strong></td>
+																<td><time datetime="2019-09-03">03 Sep 2019</time></td>
+																<td>$<span class="amount">20.00</span></td>
+																<td><span class="status badge badge-success">Completed</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="second" name="user-id-2">
+																		<label class="custom-control-label" for="second">second</label>
+																	</div>
+																</td>
+																<td><span class="id">109345</span></td>
+																<td><strong class="name">Martin Woode</strong></td>
+																<td><time datetime="2019-09-01">01 Sep 2019</time></td>
+																<td>$<span class="amount">45.00</span></td>
+																<td><span class="status badge badge-primary">Processing</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="third" name="user-id-3">
+																		<label class="custom-control-label" for="third">third</label>
+																	</div>
+																</td>
+																<td><span class="id">108673</span></td>
+																<td><strong class="name">Emily Rose</strong></td>
+																<td><time datetime="2019-08-31">31 Aug 2019</time></td>
+																<td>$<span class="amount">108.90</span></td>
+																<td><span class="status badge badge-primary">Processing</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="fourth" name="user-id-4">
+																		<label class="custom-control-label" for="fourth">fourth</label>
+																	</div>
+																</td>
+																<td><span class="id">105567</span></td>
+																<td><strong class="name">Ava Johnson</strong></td>
+																<td><time datetime="2019-08-31">31 Aug 2019</time></td>
+																<td>$<span class="amount">13.45</span></td>
+																<td><span class="status badge badge-warning">On hold</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="fifth" name="user-id-5">
+																		<label class="custom-control-label" for="fifth">fifth</label>
+																	</div>
+																</td>
+																<td><span class="id">104563</span></td>
+																<td><strong class="name">Jerry Howard</strong></td>
+																<td><time datetime="2019-08-27">27 Aug 2019</time></td>
+																<td>$<span class="amount">45.23</span></td>
+																<td><span class="status badge badge-success">Completed</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<div class="custom-control custom-checkbox">
+																		<input type="checkbox" class="custom-control-input" id="sixth" name="user-id-6">
+																		<label class="custom-control-label" for="sixth">sixth</label>
+																	</div>
+																</td>
+																<td><span class="id">109892</span></td>
+																<td><strong class="name">Micheal Doe</strong></td>
+																<td><time datetime="2019-08-25">25 Aug 2019</time></td>
+																<td>$<span class="amount">50.00</span></td>
+																<td><span class="status badge badge-danger">Cancelled</span></td>
+																<td>
+																	<div class="link-holder">
+																		<a class="edit" href="#"><i class="icon-edit"></i></a>
+																		<a class="delete" href="#"><i class="icon-bin"></i></a>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							{%else%}
+							<div class="content bg-white">
+								<div class="container">
+									<div class="text-block">
+										<h1>Dashboard</h1>
+										<p>Now we need to set up payment information. We invoice bi-weekly and our service charge is 5%.</p>
+									</div>
+									<!-- account form -->
+									<form action="#" class="account-form form-validation" method="POST">
+											{% csrf_token %}
+										<div class="form-holder">
+											<div class="img-block">
+												<img src="/static/images/stripe.png" srcset="/static/images/stripe-2x.png 2x" alt="image description">
+											</div>
+											<div class="form-group row align-items-md-center justify-content-md-end">
+												<label for="stripe-id" class="col-md-4 col-form-label">Stripe ID</label>
+												<div class="col-md-8">
+													<input type="text" class="form-control" id="stripe-id" name="stripe_id" data-required="true" {%if data.app.stripe_id %}value="{{data.app.stripe_id | escape}}" {%endif%}>
+												</div>
+												<span class="col-md-8 error-message">Please enter id</span>
+											</div>
+											<div class="form-group row align-items-md-center justify-content-md-end">
+												<label for="stripe-account" class="col-md-4 col-form-label">Stripe Account</label>
+												<div class="col-md-8">
+													<input type="text" class="form-control" name="stripe_account" id="stripe-account" placeholder="Your Stripe account" data-required="true" {%if data.app.stripe_account %}value="{{data.app.stripe_account | escape}}" {%endif%}>
+												</div>
+												<span class="col-md-8 error-message">Please enter yout account</span>
+											</div>
+										</div>
+										<div class="btn-holder text-right">
+											<button type="submit" class="btn btn-sm btn-primary">next</button>
+										</div>
+									</form>
+								</div>
+							</div>
+							{%endif%}
+							{%endblock%}
+
+						</div>
+					</div>
+					<!-- arrow decor -->
+					<i class="icon-decor-arrow"></i>
+				</div>
+			</div>
+		</main>
+
+
+{%endblock%}
+
+{%block scripts%}
+
+<script type="text/javascript">
+	
+$("#dashboardLink").addClass("active")
+
+	
+
+</script>
+
+{%endblock%}

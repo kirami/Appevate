@@ -1,0 +1,40 @@
+
+label{font-size:35px; display: inline-block;}
+input{border:1px solid black; width:400px; height:100px;}
+	.left {
+	  width: 10%;
+	  padding-top: 15px;
+	  padding-left:5%;
+	}
+
+	.center {
+	  flex-grow: 1;
+	  text-align: center; 
+	  
+	}
+
+	.right {   
+	  width: 10%;
+	  padding-top: 15px;
+	}		
+
+	.container {
+	 display: flex;
+	background-color: rgb(0, 136, 209)
+	}
+
+body{margin:0px;}
+
+.dropdown-content a {
+
+    width: 500px;
+    height: 100px;
+    font-size: 40px;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: white;
+    color:black;
+}
+  
+ .required{ border-color: red }
