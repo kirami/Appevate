@@ -1,0 +1,10 @@
+#nav li.active a { background-color:#800020;}
+
+.btn.btn-primary { background-color:#800020;}
+
+
+
+.slick-dots li:hover button, .slick-dots li.active button, .slick-dots li.slick-active button {background-color:#800020;}
+
+
+.graph-block .title:after {border-top: .40625rem solid #800020;}

@@ -131,8 +131,8 @@ urlpatterns = [
     url(r'^edit-app/(?P<app_id>[0-9]+)/$', dashboard_views.edit_app, name="edit_app"),
     url(r'^delete/app/(?P<app_id>[0-9]+)/$', dashboard_views.delete_app, name="delete_app"),
 
-    url(r'^accounts/login/$', auth_views.LoginView, {'template_name': 'login.html'}, name='login'),
-    url(r'^accounts/logout/$', auth_views.LogoutView, {'next_page': 'login'}, name='logout'),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(), {'template_name': 'login.html'}, name='login'),
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(), {'next_page': '/accounts/login'}, name='logout'),
     url(r'^accounts/verifyEmail/$', customauth_views.verifyEmail,  name='verifyEmail'),
     url(r'^accounts/reset-password/$', customauth_views.resetEmail,  name='resetEmail'),
     

@@ -72,7 +72,7 @@ INSTALLED_APPS = (
     'osmosis.inquery',
     #'djstripe',
     'rest_framework.authtoken',
-    'Crypto',
+    #'Crypto',
     #'coreapi',
     'constance',
     'constance.backends.database',
@@ -325,6 +325,8 @@ EMAIL_HOST_PASSWORD = 'Sholaris8$'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'osmosis/media')
+
+LOGOUT_REDIRECT_URL = '/accounts/login'
 
 try:
     from local_settings import *
